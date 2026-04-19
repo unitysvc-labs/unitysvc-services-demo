@@ -1,0 +1,20 @@
+{
+  "capabilities": [
+    "http_relay"
+  ],
+  "description": "Demonstrates per-enrollment variables. A short code is generated once per enrollment via `{{ enrollment_code(6) }}` and substituted into both the customer-facing gateway URL and the upstream URL, giving every enrollment a unique path.",
+  "name": "enrollment_vars",
+  "schema": "offering_v1",
+  "service_type": "proxy",
+  "status": "ready",
+  "tags": [
+    "gateway"
+  ],
+  "time_created": "2026-04-18T00:00:00Z",
+  "upstream_access_config": {
+    "Echo Service": {
+      "access_method": "http",
+      "base_url": "https://echo.staing.svcmarket.com/{{ enrollment_vars.code }}"
+    }
+  }
+}

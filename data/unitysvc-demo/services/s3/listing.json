@@ -1,0 +1,51 @@
+{
+  "currency": "USD",
+  "display_name": "S3 Content (Demo)",
+  "documents": {
+    "Connectivity test": {
+      "category": "connectivity_test",
+      "description": "Verify S3 gateway endpoint is reachable",
+      "file_path": "../../docs/s3/connectivity.sh.j2",
+      "is_active": true,
+      "is_public": false,
+      "meta": {
+        "output_contains": "connectivity ok"
+      },
+      "mime_type": "bash"
+    },
+    "How to use this service": {
+      "category": "getting_started",
+      "description": "Accessing S3 content through the UnitySVC storage gateway",
+      "file_path": "../../docs/s3/description.md",
+      "is_active": true,
+      "is_public": true,
+      "mime_type": "markdown"
+    },
+    "Python code example": {
+      "category": "code_example",
+      "description": "Browse the bucket with boto3",
+      "file_path": "../../docs/s3/code-example.py.j2",
+      "is_active": true,
+      "is_public": true,
+      "meta": {
+        "output_contains": "connectivity ok",
+        "requirements": ["boto3"]
+      },
+      "mime_type": "python"
+    }
+  },
+  "list_price": {
+    "description": "Free demo service",
+    "price": "0",
+    "type": "constant"
+  },
+  "schema": "listing_v1",
+  "status": "ready",
+  "time_created": "2026-04-18T00:00:00Z",
+  "user_access_interfaces": {
+    "S3 Gateway": {
+      "access_method": "http",
+      "base_url": "${S3_GATEWAY_BASE_URL}/demo/s3"
+    }
+  }
+}

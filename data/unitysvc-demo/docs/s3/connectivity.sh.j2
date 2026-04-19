@@ -1,0 +1,20 @@
+#!/bin/bash
+{% if local_testing %}
+{% if interface.get("s3_endpoint") %}
+# Local testing: verify S3-compatible endpoint is reachable
+curl -s -o /dev/null -w "%{http_code}" \
+    "{{ interface.s3_endpoint }}" \
+    | grep -q "200\|301\|403" && echo "connectivity ok"
+{% else %}
+# Local testing: verify S3 bucket endpoint is reachable
+curl -s -o /dev/null -w "%{http_code}" \
+    "https://{{ interface.bucket }}.s3.{{ interface.region }}.amazonaws.com/" \
+    | grep -q "200\|301\|307\|403" && echo "connectivity ok"
+{% endif %}
+{% else %}
+# Verify S3 gateway endpoint is reachable (any HTTP response means gateway is up)
+STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$SERVICE_BASE_URL/")
+echo "Gateway responded with status $STATUS"
+# Any response (even 401/403) means the gateway is reachable
+[ "$STATUS" -gt 0 ] 2>/dev/null && echo "connectivity ok"
+{% endif %}

@@ -1,0 +1,52 @@
+{
+  "currency": "USD",
+  "display_name": "Echo Relay (BYOE, parameterized secrets)",
+  "documents": {
+    "Connectivity test": {
+      "category": "connectivity_test",
+      "description": "Verify echo relay endpoint is reachable",
+      "file_path": "../../docs/connectivity.sh.j2",
+      "is_active": true,
+      "is_public": false,
+      "meta": {
+        "output_contains": "connectivity ok"
+      },
+      "mime_type": "bash"
+    }
+  },
+  "list_price": {
+    "description": "Free — customer provides own endpoint and API key",
+    "price": "0",
+    "type": "constant"
+  },
+  "schema": "listing_v1",
+  "service_options": {
+    "ops_testing_parameters": {
+      "api_key_secret": "ECHO_BYOE_API_KEY",
+      "base_url_secret": "ECHO_BYOE_BASE_URL"
+    }
+  },
+  "status": "ready",
+  "time_created": "2026-04-18T00:00:00Z",
+  "user_access_interfaces": {
+    "HTTP Gateway": {
+      "access_method": "http",
+      "base_url": "${API_GATEWAY_BASE_URL}/demo/echo-byoe-params"
+    }
+  },
+  "user_parameters_schema": {
+    "properties": {
+      "api_key_secret": {
+        "default": "",
+        "description": "Name of the customer secret containing the API key (leave empty if no auth)",
+        "type": "string"
+      },
+      "base_url_secret": {
+        "description": "Name of the customer secret containing the upstream base URL",
+        "type": "string"
+      }
+    },
+    "required": ["base_url_secret"],
+    "type": "object"
+  }
+}

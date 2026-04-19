@@ -1,0 +1,31 @@
+{
+  "currency": "USD",
+  "display_name": "Echo Relay",
+  "documents": {
+    "Connectivity test": {
+      "category": "connectivity_test",
+      "description": "Verify echo relay endpoint is reachable",
+      "file_path": "../../docs/connectivity.sh.j2",
+      "is_active": true,
+      "is_public": false,
+      "meta": {
+        "output_contains": "connectivity ok"
+      },
+      "mime_type": "bash"
+    }
+  },
+  "list_price": {
+    "description": "Free demo service",
+    "price": "0",
+    "type": "constant"
+  },
+  "schema": "listing_v1",
+  "status": "ready",
+  "time_created": "2026-04-18T00:00:00Z",
+  "user_access_interfaces": {
+    "HTTP Gateway": {
+      "access_method": "http",
+      "base_url": "${API_GATEWAY_BASE_URL}/demo/echo-relay"
+    }
+  }
+}

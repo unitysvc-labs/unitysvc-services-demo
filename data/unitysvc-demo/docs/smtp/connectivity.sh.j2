@@ -1,0 +1,14 @@
+#!/bin/bash
+# Test SMTP connectivity
+{% if local_testing %}
+# Local testing: HOST and PORT from upstream_access_config
+SMTP_HOST=${HOST:-localhost}
+SMTP_PORT=${PORT:-587}
+{% else %}
+# Gateway testing: parse SERVICE_BASE_URL (smtp://host:port)
+SMTP_HOST=$(echo "$SERVICE_BASE_URL" | sed -E 's|^smtps?://||' | cut -d: -f1)
+SMTP_PORT=$(echo "$SERVICE_BASE_URL" | sed -E 's|^smtps?://||' | cut -d: -f2 | cut -d/ -f1)
+SMTP_HOST=${SMTP_HOST:-localhost}
+SMTP_PORT=${SMTP_PORT:-587}
+{% endif %}
+(sleep 1; echo "QUIT") | nc -w5 "$SMTP_HOST" "$SMTP_PORT" | grep -q "220" && echo "connectivity ok"

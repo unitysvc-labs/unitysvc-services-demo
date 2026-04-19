@@ -1,0 +1,11 @@
+#!/bin/bash
+# Test echo relay connectivity
+{% if local_testing %}
+BASE_URL=https://echo.staing.svcmarket.com
+{% else %}
+BASE_URL=${SERVICE_BASE_URL}
+{% endif %}
+http_code=$(curl -s --max-time 5 -o /dev/null -w "%{http_code}" "${BASE_URL}")
+if [[ "$http_code" =~ ^[0-9]+$ ]] && [ "$http_code" -ge 100 ]; then
+    echo "connectivity ok"
+fi
