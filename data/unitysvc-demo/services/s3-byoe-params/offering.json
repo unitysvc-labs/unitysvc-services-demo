@@ -3,7 +3,7 @@
     "s3_browse",
     "s3_download"
   ],
-  "description": "BYOE S3 relay with per-enrollment secret selection. The customer supplies parameter values that name which of their secrets hold the upstream endpoint, bucket, region, and credentials, so one offering can serve many distinct buckets per customer.",
+  "description": "BYOE S3 relay with per-enrollment secret selection. The customer supplies parameter values that name which of their secrets hold the upstream endpoint, bucket, region, and credentials, so one offering can serve many distinct buckets per customer. The region field falls back to `us-east-1` via the `?? us-east-1` default operator if the named secret isn't set.",
   "name": "s3-byoe-params",
   "payout_price": {
     "description": "No platform commission — customer uses own bucket",
@@ -23,7 +23,7 @@
       "access_key": "${ customer_secrets.{{ params.s3_access_key_secret }} }",
       "access_method": "http",
       "bucket": "${ customer_secrets.{{ params.s3_bucket_secret }} }",
-      "region": "${ customer_secrets.{{ params.s3_region_secret }} }",
+      "region": "${ customer_secrets.{{ params.s3_region_secret }} ?? us-east-1 }",
       "s3_endpoint": "${ customer_secrets.{{ params.s3_endpoint_secret }} }",
       "secret_key": "${ customer_secrets.{{ params.s3_secret_key_secret }} }",
       "storage_type": "s3"
