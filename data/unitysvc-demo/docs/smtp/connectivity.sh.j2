@@ -1,14 +1,34 @@
 #!/bin/bash
-# Test SMTP connectivity
-{% if local_testing %}
-# Local testing: HOST and PORT from upstream_access_config
-SMTP_HOST=${HOST:-localhost}
-SMTP_PORT=${PORT:-587}
-{% else %}
-# Gateway testing: parse SERVICE_BASE_URL (smtp://host:port)
-SMTP_HOST=$(echo "$SERVICE_BASE_URL" | sed -E 's|^smtps?://||' | cut -d: -f1)
-SMTP_PORT=$(echo "$SERVICE_BASE_URL" | sed -E 's|^smtps?://||' | cut -d: -f2 | cut -d/ -f1)
-SMTP_HOST=${SMTP_HOST:-localhost}
-SMTP_PORT=${SMTP_PORT:-587}
-{% endif %}
-(sleep 1; echo "QUIT") | nc -w5 "$SMTP_HOST" "$SMTP_PORT" | grep -q "220" && echo "connectivity ok"
+# Connectivity test for SMTP services. A healthy mail server sends a
+# "220 ... ESMTP ..." greeting on connect; anything else (no response,
+# timeout, or other greeting code) is treated as failure.
+#
+# Env var layout the harness provides:
+#   local mode   — $HOST, $PORT  (from upstream_access_config)
+#   online mode  — $SERVICE_BASE_URL  (smtp://host:port or smtps://host:port)
+# We branch on whichever is present so the same script works in both.
+set -o pipefail
+
+if [ -n "${HOST:-}" ]; then
+    PORT="${PORT:-587}"
+else
+    URL="${SERVICE_BASE_URL:?need HOST or SERVICE_BASE_URL}"
+    stripped="${URL#smtp://}"
+    stripped="${stripped#smtps://}"
+    HOST="${stripped%%:*}"
+    PORT="${stripped#*:}"
+    PORT="${PORT%%/*}"
+    PORT="${PORT:-587}"
+fi
+
+# `nc -w 5` caps both connect wait and idle-after-banner wait. Send QUIT
+# so the server closes cleanly instead of timing out on us.
+greeting=$( (echo "QUIT"; sleep 1) | nc -w 5 "$HOST" "$PORT" 2>/dev/null | head -1 )
+
+if [[ "$greeting" == "220 "* ]]; then
+    echo "connectivity ok ($greeting)"
+    exit 0
+fi
+
+echo "connectivity failed: expected '220 ...' greeting from ${HOST}:${PORT}, got: ${greeting:-<no response>}" >&2
+exit 1

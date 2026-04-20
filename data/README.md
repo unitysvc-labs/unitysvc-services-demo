@@ -2,7 +2,7 @@
 
 This folder holds minimal working examples of UnitySVC services under
 `unitysvc-demo/`, one per delivery pattern. HTTP examples relay to
-`https://echo.staing.svcmarket.com`; S3 uses `s3.staging.svcpass.com`;
+`https://echo.staging.svcmarket.com`; S3 uses `s3.staging.svcpass.com`;
 SMTP uses `mail.staging.svcmarket.com`. Use them as copy-paste starting
 points for your own services.
 
@@ -156,7 +156,7 @@ cycle. Because the admin approves the _template_ at publish time, changing
 values it references is safe.
 
 - **listing.json** declares the initial values under
-  `service_options.routing_vars` (`backend_host: "https://echo.staing.svcmarket.com"`).
+  `service_options.routing_vars` (`backend_host: "https://echo.staging.svcmarket.com"`).
 - **offering.json** references them as `{{ routing_vars.backend_host }}` in
   `upstream_access_config."Echo Service".base_url`. Rendered at request time
   only (not at enrollment).
@@ -202,10 +202,13 @@ are resolved from `customer_secrets`.
 ### `s3-byoe-params` — BYOE S3 with parameterized secret names
 
 S3 equivalent of `byoe-params`. Enrollment parameters declare which of the
-customer's secrets hold each piece of upstream config, using the
-`${ customer_secrets[enrollment_params.NAME] }` bracket lookup.
+customer's secrets hold each piece of upstream config, using the Jinja-
+rendered dot form
+`${ customer_secrets.{{ params.NAME }} }` — the inner `{{ params.NAME }}`
+resolves to the secret's name, which the secret resolver then looks up.
 
-- **offering.json** uses bracket lookup for all five upstream fields.
+- **offering.json** uses this pattern for all five upstream fields
+  (matches the same pattern as `smtp-byoe-params`).
 - **listing.json** declares a `user_parameters_schema` with the five
   parameter names (all required) and pins them to `SVCPASS_S3_*` in
   `service_options.ops_testing_parameters` for automated tests.
