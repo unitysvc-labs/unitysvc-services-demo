@@ -20,12 +20,12 @@
   "time_created": "2026-04-18T00:00:00Z",
   "upstream_access_config": {
     "S3 Upstream": {
-      "access_key": "${ customer_secrets[enrollment_params.s3_access_key_secret] }",
+      "access_key": "${ customer_secrets.{{ params.s3_access_key_secret }} }",
       "access_method": "http",
-      "bucket": "${ customer_secrets[enrollment_params.s3_bucket_secret] }",
-      "region": "${ customer_secrets[enrollment_params.s3_region_secret] }",
-      "s3_endpoint": "${ customer_secrets[enrollment_params.s3_endpoint_secret] }",
-      "secret_key": "${ customer_secrets[enrollment_params.s3_secret_key_secret] }",
+      "bucket": "${ customer_secrets.{{ params.s3_bucket_secret }} }",
+      "region": "${ customer_secrets.{{ params.s3_region_secret }} }",
+      "s3_endpoint": "${ customer_secrets.{{ params.s3_endpoint_secret }} }",
+      "secret_key": "${ customer_secrets.{{ params.s3_secret_key_secret }} }",
       "storage_type": "s3"
     }
   }

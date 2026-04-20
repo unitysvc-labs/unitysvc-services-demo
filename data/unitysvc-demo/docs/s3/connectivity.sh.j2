@@ -1,20 +1,35 @@
 #!/bin/bash
-{% if local_testing %}
-{% if interface.get("s3_endpoint") %}
-# Local testing: verify S3-compatible endpoint is reachable
-curl -s -o /dev/null -w "%{http_code}" \
-    "{{ interface.s3_endpoint }}" \
-    | grep -q "200\|301\|403" && echo "connectivity ok"
-{% else %}
-# Local testing: verify S3 bucket endpoint is reachable
-curl -s -o /dev/null -w "%{http_code}" \
-    "https://{{ interface.bucket }}.s3.{{ interface.region }}.amazonaws.com/" \
-    | grep -q "200\|301\|307\|403" && echo "connectivity ok"
-{% endif %}
-{% else %}
-# Verify S3 gateway endpoint is reachable (any HTTP response means gateway is up)
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$SERVICE_BASE_URL/")
-echo "Gateway responded with status $STATUS"
-# Any response (even 401/403) means the gateway is reachable
-[ "$STATUS" -gt 0 ] 2>/dev/null && echo "connectivity ok"
-{% endif %}
+# Connectivity test for S3-compatible content services. An unsigned GET
+# on the bucket returns 2xx/3xx (public) or 401/403 (signed access
+# required) — either confirms the endpoint is alive. Anything else
+# (000 / 404 / 5xx) is treated as failure.
+#
+# Env var layout the harness provides:
+#   local mode   — $S3_ENDPOINT, $BUCKET  (from upstream_access_config)
+#   online mode  — $SERVICE_BASE_URL      (fully-qualified gateway bucket path)
+# We branch on whichever is present so the same script works in both.
+set -o pipefail
+
+if [ -n "${S3_ENDPOINT:-}" ] && [ -n "${BUCKET:-}" ]; then
+    URL="${S3_ENDPOINT%/}/${BUCKET}/"
+else
+    URL="${SERVICE_BASE_URL:?need S3_ENDPOINT+BUCKET or SERVICE_BASE_URL}"
+    URL="${URL%/}/"
+fi
+
+status=$(curl -sS --max-time 5 -o /dev/null -w "%{http_code}" "$URL" 2>/dev/null)
+
+case "$status" in
+  2??|3??|401|403)
+    echo "connectivity ok (HTTP $status)"
+    exit 0
+    ;;
+  000)
+    echo "connectivity failed: could not connect to $URL" >&2
+    exit 1
+    ;;
+  *)
+    echo "connectivity failed: HTTP $status from $URL" >&2
+    exit 1
+    ;;
+esac
