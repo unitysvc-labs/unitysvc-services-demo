@@ -25,12 +25,18 @@ sys.exit(0)
 {% endif %}
 {% else %}
 # Access via UnitySVC S3 gateway — sign with the customer's API key.
+# SERVICE_BASE_URL is {gateway_base}/{bucket_path} (e.g. http://host:9180/demo/s3).
+# The boto3 endpoint is just the scheme+host+port; the bucket is the full path component.
+import urllib.parse
 service_url = os.environ['SERVICE_BASE_URL'].rstrip('/')
-endpoint_url = service_url.rsplit('/', 1)[0]
+_parsed = urllib.parse.urlparse(service_url)
+endpoint_url = f"{_parsed.scheme}://{_parsed.netloc}"
+bucket = _parsed.path.strip('/')
 s3 = boto3.client('s3',
     endpoint_url=endpoint_url,
     aws_access_key_id=os.environ['UNITYSVC_API_KEY'],
     aws_secret_access_key='not-used',
+    region_name='us-east-1',
 )
 {% endif %}
 
@@ -40,7 +46,11 @@ s3 = boto3.client('s3',
 AUTH_FAILURES = {'InvalidAccessKeyId', 'SignatureDoesNotMatch', 'InvalidClientTokenId'}
 
 try:
+    {% if local_testing %}
     s3.list_buckets()
+    {% else %}
+    s3.list_objects_v2(Bucket=bucket, MaxKeys=1)
+    {% endif %}
 except ClientError as e:
     status = e.response.get('ResponseMetadata', {}).get('HTTPStatusCode')
     code = e.response.get('Error', {}).get('Code', '')
