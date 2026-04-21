@@ -14,13 +14,13 @@
   "time_created": "2026-04-18T00:00:00Z",
   "upstream_access_config": {
     "S3 Upstream": {
-      "access_key": "${ secrets.SVCMARKET_S3_ACCESS_KEY_ID }",
+      "access_key": "${ secrets.S3_ACCESS_KEY }",
       "access_method": "http",
       "base_path": "demo/",
-      "bucket": "demo-bucket",
+      "bucket": "demo",
       "region": "us-east-1",
-      "s3_endpoint": "https://s3.staging.svcpass.com",
-      "secret_key": "${ secrets.SVCMARKET_S3_SECRET_ACCESS_KEY }",
+      "s3_endpoint": "https://s3.staging.svcmarket.com",
+      "secret_key": "${ secrets.S3_SECRET_KEY }",
       "storage_type": "s3"
     }
   }

@@ -4,14 +4,15 @@
   "documents": {
     "Connectivity test": {
       "category": "connectivity_test",
-      "description": "Verify S3 gateway endpoint is reachable",
-      "file_path": "../../docs/s3/connectivity.sh.j2",
+      "description": "Verify S3 bucket is reachable with the configured credentials",
+      "file_path": "../../docs/s3/connectivity.py.j2",
       "is_active": true,
       "is_public": false,
       "meta": {
-        "output_contains": "connectivity ok"
+        "output_contains": "connectivity ok",
+        "requirements": ["boto3"]
       },
-      "mime_type": "bash"
+      "mime_type": "python"
     },
     "How to use this service": {
       "category": "getting_started",

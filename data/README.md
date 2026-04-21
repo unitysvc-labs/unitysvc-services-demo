@@ -255,17 +255,38 @@ customer (personal Gmail, work SendGrid, transactional SES, etc.).
   `SMTP_PORT` / `SMTP_USERNAME` / `SMTP_PASSWORD` in
   `service_options.ops_testing_parameters` for automated tests.
 
-## Testing services that use `customer_secrets`
+## Environment variables for local testing
 
-For local and gateway tests to succeed, the seller must create a secret in their
-own secret store for each `customer_secrets.NAME` referenced by the service. At
-test time the platform substitutes the seller's secret in place of the customer
-secret. For the example services the required secret names are:
+`usvc_seller data run-tests` resolves every `${ secrets.NAME }` and
+`${ customer_secrets.NAME }` reference in an offering's
+`upstream_access_config` by reading `NAME` from the current process
+environment. A service is skipped (with a clear "missing environment
+variables: …" message) if any referenced variable is unset.
 
-- `byok`: `ECHO_API_KEY`
-- `byoe`: `ECHO_BYOE_BASE_URL`, `ECHO_BYOE_API_KEY`
-- `byoe-params`: `ECHO_BYOE_BASE_URL`, `ECHO_BYOE_API_KEY` (same values, surfaced via parameter names)
-- `s3-byoe`: `S3_ENDPOINT`, `S3_BUCKET`, `S3_REGION`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`
-- `s3-byoe-params`: `SVCPASS_S3_ENDPOINT`, `SVCPASS_S3_BUCKET`, `SVCPASS_S3_REGION`, `SVCMARKET_S3_ACCESS_KEY_ID`, `SVCMARKET_S3_SECRET_ACCESS_KEY`
-- `smtp-byoe`: `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`
-- `smtp-byoe-params`: `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD` (surfaced via parameter names)
+Export the variables below before running the tests. Services not
+listed here require no environment configuration.
+
+| Service            | Required env vars                                            | Optional                       |
+| ------------------ | ------------------------------------------------------------ | ------------------------------ |
+| `byok`             | —                                                            | `ECHO_API_KEY` (→ empty)       |
+| `byoe`             | `ECHO_BYOE_BASE_URL`, `ECHO_BYOE_API_KEY`                    |                                |
+| `byoe-params`      | `ECHO_BYOE_BASE_URL`, `ECHO_BYOE_API_KEY`                    |                                |
+| `s3`               | `S3_ACCESS_KEY`, `S3_SECRET_KEY`                             |                                |
+| `s3-byoe`          | `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY` | `S3_REGION` (→ `us-east-1`)    |
+| `s3-byoe-params`   | `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY` | `S3_REGION` (→ `us-east-1`)    |
+| `smtp-byoe`        | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`   |                                |
+| `smtp-byoe-params` | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`   |                                |
+
+Notes:
+
+- The `s3` family all use the same `S3_*` env vars whether referenced
+  as seller `${ secrets.* }` (in `s3`) or customer `${ customer_secrets.* }`
+  (in the BYOE variants) — at local-test time both resolve from the
+  process environment.
+- `s3-byoe-params` and `smtp-byoe-params` declare the secret names via
+  `service_options.ops_testing_parameters` in their listing. Changing
+  those mappings changes which env vars the tests read.
+- `S3_REGION` is optional for both S3 BYOE services — the `?? us-east-1`
+  default in their offerings is used when the env var is unset.
+- `byok`'s `ECHO_API_KEY` is optional (`?? ` default empty): the echo
+  upstream accepts any key, so local tests work without it set.
