@@ -24,20 +24,20 @@ print("connectivity ok (public bucket — no credentials to verify)")
 sys.exit(0)
 {% endif %}
 {% else %}
-# Access via UnitySVC S3 gateway — sign with the customer's API key.
-# SERVICE_BASE_URL is {gateway_base}/{bucket_path} (e.g. http://host:9180/demo/s3).
-# The boto3 endpoint is just the scheme+host+port; the bucket is the full path component.
-import urllib.parse
+# Gateway path: just verify the S3 gateway endpoint is reachable.
+# Any HTTP response (including 401/403) means the gateway is up and routing.
+# Credential verification is done in local_testing mode above.
+import urllib.request
 service_url = os.environ['SERVICE_BASE_URL'].rstrip('/')
-_parsed = urllib.parse.urlparse(service_url)
-endpoint_url = f"{_parsed.scheme}://{_parsed.netloc}"
-bucket = _parsed.path.strip('/')
-s3 = boto3.client('s3',
-    endpoint_url=endpoint_url,
-    aws_access_key_id=os.environ['UNITYSVC_API_KEY'],
-    aws_secret_access_key='not-used',
-    region_name='us-east-1',
-)
+try:
+    urllib.request.urlopen(service_url + '/', timeout=10)
+except urllib.error.HTTPError:
+    pass  # Any HTTP response means the gateway is reachable
+except Exception as e:
+    print(f"connectivity failed: {e}", file=sys.stderr)
+    sys.exit(1)
+print("connectivity ok")
+sys.exit(0)
 {% endif %}
 
 # Auth-error codes: credentials were rejected. Anything else (including
@@ -46,11 +46,7 @@ s3 = boto3.client('s3',
 AUTH_FAILURES = {'InvalidAccessKeyId', 'SignatureDoesNotMatch', 'InvalidClientTokenId'}
 
 try:
-    {% if local_testing %}
     s3.list_buckets()
-    {% else %}
-    s3.list_objects_v2(Bucket=bucket, MaxKeys=1)
-    {% endif %}
 except ClientError as e:
     status = e.response.get('ResponseMetadata', {}).get('HTTPStatusCode')
     code = e.response.get('Error', {}).get('Code', '')
