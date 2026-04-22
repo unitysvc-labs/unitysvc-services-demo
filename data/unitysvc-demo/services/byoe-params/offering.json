@@ -1,11 +1,16 @@
 {
-  "capabilities": ["http_relay"],
+  "capabilities": [
+    "http_relay"
+  ],
   "description": "BYOE echo relay with per-enrollment secret selection. Parameters name which customer secrets hold the upstream URL and API key, so one offering can serve many distinct backends per customer.",
   "name": "byoe-params",
   "schema": "offering_v1",
   "service_type": "proxy",
   "status": "ready",
-  "tags": ["byoe", "gateway"],
+  "tags": [
+    "byoe",
+    "gateway"
+  ],
   "time_created": "2026-04-18T00:00:00Z",
   "upstream_access_config": {
     "Echo Service": {

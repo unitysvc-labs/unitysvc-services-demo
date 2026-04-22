@@ -1,0 +1,63 @@
+import boto3
+import os
+import sys
+from botocore.exceptions import BotoCoreError, ClientError
+{% if local_testing %}
+{% if interface.get("access_key") %}
+# Local testing: verify credentials are accepted by the S3 endpoint.
+# We intentionally do NOT target a specific bucket — this test is about
+# "can the user authenticate against the upstream", not "does bucket X
+# exist". list_buckets is the cheapest signed call: credentials are
+# validated regardless of whether the account is actually allowed to
+# enumerate buckets (AccessDenied on the list still proves auth worked).
+s3_kwargs = {
+    'region_name': os.environ['REGION'],
+    'aws_access_key_id': os.environ['ACCESS_KEY'],
+    'aws_secret_access_key': os.environ['SECRET_KEY'],
+}
+if os.environ.get('S3_ENDPOINT'):
+    s3_kwargs['endpoint_url'] = os.environ['S3_ENDPOINT']
+s3 = boto3.client('s3', **s3_kwargs)
+{% else %}
+# Public bucket: no credentials to verify, nothing to check.
+print("connectivity ok (public bucket — no credentials to verify)")
+sys.exit(0)
+{% endif %}
+{% else %}
+# Access via UnitySVC S3 gateway — sign with the customer's API key.
+# SERVICE_BASE_URL is {endpoint_prefix}/{service_slug} (e.g. http://host:9180/demo/s3).
+# Split on the last '/' so boto3 path-style addressing reconstructs the full URL.
+service_url = os.environ['SERVICE_BASE_URL'].rstrip('/')
+endpoint_url = service_url.rsplit('/', 1)[0]
+bucket = service_url.rsplit('/', 1)[1]
+s3 = boto3.client('s3',
+    endpoint_url=endpoint_url,
+    aws_access_key_id=os.environ['UNITYSVC_API_KEY'],
+    aws_secret_access_key='not-used',
+    region_name='us-east-1',
+)
+{% endif %}
+
+# Auth-error codes: credentials were rejected. Anything else (including
+# 403 AccessDenied on list_buckets) still proves the signature was
+# accepted — the caller just isn't allowed to list. That counts as ok.
+AUTH_FAILURES = {'InvalidAccessKeyId', 'SignatureDoesNotMatch', 'InvalidClientTokenId'}
+
+try:
+    {% if local_testing %}
+    s3.list_buckets()
+    {% else %}
+    s3.list_objects_v2(Bucket=bucket, MaxKeys=1)
+    {% endif %}
+except ClientError as e:
+    status = e.response.get('ResponseMetadata', {}).get('HTTPStatusCode')
+    code = e.response.get('Error', {}).get('Code', '')
+    if status == 401 or code in AUTH_FAILURES:
+        print(f"connectivity failed: credentials rejected ({code or status})", file=sys.stderr)
+        sys.exit(1)
+    # Non-auth errors: credentials were accepted, endpoint just didn't
+    # like the specific call. That's still connectivity ok.
+except BotoCoreError as e:
+    print(f"connectivity failed: {e}", file=sys.stderr)
+    sys.exit(1)
+print("connectivity ok")

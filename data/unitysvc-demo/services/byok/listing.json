@@ -15,7 +15,7 @@
     }
   },
   "list_price": {
-    "description": "Free — customer brings own API key",
+    "description": "Free \u2014 customer brings own API key",
     "price": "0",
     "type": "constant"
   },
