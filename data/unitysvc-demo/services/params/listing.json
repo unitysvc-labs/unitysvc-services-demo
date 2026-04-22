@@ -39,12 +39,14 @@
   "user_parameters_schema": {
     "properties": {
       "model": {
-        "title": "Model",
         "description": "Model identifier used as the routing key for this enrollment",
+        "title": "Model",
         "type": "string"
       }
     },
-    "required": ["model"],
+    "required": [
+      "model"
+    ],
     "type": "object"
   }
 }

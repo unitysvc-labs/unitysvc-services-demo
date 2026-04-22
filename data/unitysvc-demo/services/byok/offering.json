@@ -1,11 +1,16 @@
 {
-  "capabilities": ["http_relay"],
+  "capabilities": [
+    "http_relay"
+  ],
   "description": "BYOK HTTP relay. Proxies requests to the echo endpoint using an API key supplied by the customer via the customer secret store.",
   "name": "byok",
   "schema": "offering_v1",
   "service_type": "proxy",
   "status": "ready",
-  "tags": ["byok", "gateway"],
+  "tags": [
+    "byok",
+    "gateway"
+  ],
   "time_created": "2026-04-18T00:00:00Z",
   "upstream_access_config": {
     "Echo Service": {

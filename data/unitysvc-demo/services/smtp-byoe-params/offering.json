@@ -2,10 +2,10 @@
   "capabilities": [
     "smtp_relay"
   ],
-  "description": "Multi-enrollment BYOE SMTP relay. Each enrollment connects to a different SMTP server — customers provide the names of their own secrets as parameters, enabling multiple relay configurations (personal Gmail, work SendGrid, transactional SES, etc.) under a single account.",
+  "description": "Multi-enrollment BYOE SMTP relay. Each enrollment connects to a different SMTP server \u2014 customers provide the names of their own secrets as parameters, enabling multiple relay configurations (personal Gmail, work SendGrid, transactional SES, etc.) under a single account.",
   "name": "smtp-byoe-params",
   "payout_price": {
-    "description": "No platform commission — customer uses own SMTP",
+    "description": "No platform commission \u2014 customer uses own SMTP",
     "percentage": "100.00",
     "type": "revenue_share"
   },

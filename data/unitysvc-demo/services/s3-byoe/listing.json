@@ -10,7 +10,9 @@
       "is_public": false,
       "meta": {
         "output_contains": "connectivity ok",
-        "requirements": ["boto3"]
+        "requirements": [
+          "boto3"
+        ]
       },
       "mime_type": "python"
     },
@@ -30,13 +32,15 @@
       "is_public": true,
       "meta": {
         "output_contains": "connectivity ok",
-        "requirements": ["boto3"]
+        "requirements": [
+          "boto3"
+        ]
       },
       "mime_type": "python"
     }
   },
   "list_price": {
-    "description": "Free — customer provides own bucket and credentials",
+    "description": "Free \u2014 customer provides own bucket and credentials",
     "price": "0",
     "type": "constant"
   },

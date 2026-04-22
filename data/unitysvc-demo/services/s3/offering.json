@@ -1,5 +1,8 @@
 {
-  "capabilities": ["s3_browse", "s3_download"],
+  "capabilities": [
+    "s3_browse",
+    "s3_download"
+  ],
   "description": "Simple S3-compatible content service. Routes customer requests through the UnitySVC S3 gateway to a seller-managed upstream bucket on `s3.staging.svcpass.com`. No customer enrollment or secrets required; seller supplies upstream credentials via seller secrets.",
   "name": "s3",
   "payout_price": {
@@ -10,7 +13,9 @@
   "schema": "offering_v1",
   "service_type": "content",
   "status": "ready",
-  "tags": ["gateway"],
+  "tags": [
+    "gateway"
+  ],
   "time_created": "2026-04-18T00:00:00Z",
   "upstream_access_config": {
     "S3 Upstream": {
