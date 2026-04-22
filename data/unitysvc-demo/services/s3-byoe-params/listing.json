@@ -55,7 +55,7 @@
   "user_access_interfaces": {
     "S3 Gateway": {
       "access_method": "http",
-      "base_url": "${S3_GATEWAY_BASE_URL}/demo/s3-byoe-params"
+      "base_url": "${S3_GATEWAY_BASE_URL}/demo-s3-byoe-params"
     }
   },
   "user_parameters_schema": {
