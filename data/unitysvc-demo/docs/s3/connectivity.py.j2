@@ -25,13 +25,11 @@ sys.exit(0)
 {% endif %}
 {% else %}
 # Access via UnitySVC S3 gateway — sign with the customer's API key.
-# SERVICE_BASE_URL is {gateway_base}/{bucket_path} (e.g. http://host:9180/demo/s3).
-# The boto3 endpoint is just the scheme+host+port; the bucket is the full path component.
-import urllib.parse
+# SERVICE_BASE_URL is {endpoint_prefix}/{service_slug} (e.g. http://host:9180/demo/s3).
+# Split on the last '/' so boto3 path-style addressing reconstructs the full URL.
 service_url = os.environ['SERVICE_BASE_URL'].rstrip('/')
-_parsed = urllib.parse.urlparse(service_url)
-endpoint_url = f"{_parsed.scheme}://{_parsed.netloc}"
-bucket = _parsed.path.strip('/')
+endpoint_url = service_url.rsplit('/', 1)[0]
+bucket = service_url.rsplit('/', 1)[1]
 s3 = boto3.client('s3',
     endpoint_url=endpoint_url,
     aws_access_key_id=os.environ['UNITYSVC_API_KEY'],
