@@ -3,19 +3,11 @@
   "display_name": "SMTP Relay (BYOE, parameterized secrets)",
   "documents": {
     "Connectivity test": {
-      "category": "connectivity_test",
-      "description": "Verify SMTP gateway is reachable",
-      "file_path": "../../docs/smtp/connectivity.sh.j2",
-      "is_active": true,
-      "is_public": false,
-      "meta": {
-        "output_contains": "connectivity ok"
-      },
-      "mime_type": "bash"
+      "$doc_preset": "smtp_connectivity"
     }
   },
   "list_price": {
-    "description": "Free \u2014 customer provides own SMTP server",
+    "description": "Free — customer provides own SMTP server",
     "price": "0",
     "type": "constant"
   },

@@ -3,15 +3,7 @@
   "display_name": "SMTP Relay (Demo)",
   "documents": {
     "Connectivity test": {
-      "category": "connectivity_test",
-      "description": "Verify SMTP gateway is reachable",
-      "file_path": "../../docs/smtp/connectivity.sh.j2",
-      "is_active": true,
-      "is_public": false,
-      "meta": {
-        "output_contains": "connectivity ok"
-      },
-      "mime_type": "bash"
+      "$doc_preset": "smtp_connectivity"
     }
   },
   "list_price": {
