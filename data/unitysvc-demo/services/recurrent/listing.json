@@ -3,15 +3,7 @@
   "display_name": "Echo Relay (Recurrent)",
   "documents": {
     "Connectivity test": {
-      "category": "connectivity_test",
-      "description": "Verify echo relay endpoint is reachable",
-      "file_path": "../../docs/connectivity.sh.j2",
-      "is_active": true,
-      "is_public": false,
-      "meta": {
-        "output_contains": "connectivity ok"
-      },
-      "mime_type": "bash"
+      "$doc_preset": "api_connectivity"
     }
   },
   "list_price": {

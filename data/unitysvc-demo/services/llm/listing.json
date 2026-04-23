@@ -3,23 +3,13 @@
   "display_name": "Mock LLM",
   "documents": {
     "Connectivity test": {
-      "category": "connectivity_test",
-      "description": "Verify the LLM gateway endpoint is reachable",
-      "file_path": "../../docs/connectivity.sh.j2",
-      "is_active": true,
-      "is_public": false,
-      "meta": {
-        "output_contains": "connectivity ok"
-      },
-      "mime_type": "bash"
+      "$doc_preset": "api_connectivity"
     },
     "Default request body": {
-      "category": "request_template",
-      "description": "Default chat completion request body, pre-fills the playground",
-      "file_path": "../../docs/llm/request-template.json",
-      "is_active": true,
-      "is_public": true,
-      "mime_type": "json"
+      "$doc_preset": {
+        "is_public": true,
+        "name": "llm_request_template"
+      }
     }
   },
   "list_price": {

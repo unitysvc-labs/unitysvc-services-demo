@@ -9,6 +9,24 @@ This guide distills the design in
 actionable rules. Read this first; reach for the design doc only if
 the invariant below doesn't answer your question.
 
+> **Before you start:** most common cases (HTTP connectivity test,
+> S3 credential smoke test, S3 `boto3` usage example, LLM request
+> template, SMTP banner test) are already packaged as presets in
+> [`unitysvc-data`](https://github.com/unitysvc/unitysvc-data) and
+> can be referenced from a listing with a single line:
+>
+> ```json
+> "Connectivity test": { "$doc_preset": "s3_connectivity" }
+> ```
+>
+> The examples in `unitysvc-data` were originally copied from this
+> guide's tree and stay in lock-step with the conventions below. Use
+> `usvc_data list` to browse the available presets before writing a
+> new `.j2` file by hand. This guide is still the right starting
+> point when (a) you need a preset variant that doesn't exist yet and
+> want to contribute one upstream, or (b) your service genuinely
+> needs a custom example that isn't reusable.
+
 ## The one invariant
 
 > A code example must work correctly in **both** rendering modes:
