@@ -2,8 +2,8 @@
 
 This folder holds minimal working examples of UnitySVC services under
 `unitysvc-demo/`, one per delivery pattern. HTTP examples relay to
-`https://echo.staging.svcmarket.com`; S3 uses `s3.staging.svcpass.com`;
-SMTP uses `mail.staging.svcmarket.com`. Use them as copy-paste starting
+`https://echo.svcmarket.com`; S3 uses `s3.staging.svcpass.com`;
+SMTP uses `mail.svcmarket.com`. Use them as copy-paste starting
 points for your own services.
 
 ## Service overview
@@ -47,7 +47,7 @@ that make a service an LLM on the marketplace.
   a `details` block with `context_window`, `max_input_tokens`,
   `max_output_tokens`, `mode: "chat"`, and a token-based `payout_price`
   (`type: "one_million_tokens"`) with split `input` / `output` rates.
-  Upstream is `https://mock.staging.svcmarket.com/openai/v1` (OpenAI-compatible).
+  Upstream is `https://mock.svcmarket.com/openai/v1` (OpenAI-compatible).
 - **listing.json** uses token-based `list_price` (input/output split), gateway
   path `${API_GATEWAY_BASE_URL}/demo/llm`, and a `request_template` document
   (`docs/llm/request-template.json`) that pre-fills the marketplace playground
@@ -156,7 +156,7 @@ cycle. Because the admin approves the _template_ at publish time, changing
 values it references is safe.
 
 - **listing.json** declares the initial values under
-  `service_options.routing_vars` (`backend_host: "https://echo.staging.svcmarket.com"`).
+  `service_options.routing_vars` (`backend_host: "https://echo.svcmarket.com"`).
 - **offering.json** references them as `{{ routing_vars.backend_host }}` in
   `upstream_access_config."Echo Service".base_url`. Rendered at request time
   only (not at enrollment).
@@ -220,7 +220,7 @@ HTTP or S3 gateway). Seller-managed upstream; no customer enrollment or
 secrets required.
 
 - **offering.json** `upstream_access_config` uses `access_method: "smtp"` plus
-  SMTP-specific fields: `host: "mail.staging.svcmarket.com"`, `port: 587`,
+  SMTP-specific fields: `host: "mail.svcmarket.com"`, `port: 587`,
   `tls: true`.
 - **listing.json** `user_access_interfaces."SMTP Gateway"` uses
   `access_method: "smtp"`, `base_url: "${SMTP_GATEWAY_BASE_URL}"`, and a
@@ -266,16 +266,16 @@ variables: …" message) if any referenced variable is unset.
 Export the variables below before running the tests. Services not
 listed here require no environment configuration.
 
-| Service            | Required env vars                                            | Optional                       |
-| ------------------ | ------------------------------------------------------------ | ------------------------------ |
-| `byok`             | —                                                            | `ECHO_API_KEY` (→ empty)       |
-| `byoe`             | `ECHO_BYOE_BASE_URL`, `ECHO_BYOE_API_KEY`                    |                                |
-| `byoe-params`      | `ECHO_BYOE_BASE_URL`, `ECHO_BYOE_API_KEY`                    |                                |
-| `s3`               | `S3_ACCESS_KEY`, `S3_SECRET_KEY`                             |                                |
-| `s3-byoe`          | `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY` | `S3_REGION` (→ `us-east-1`)    |
-| `s3-byoe-params`   | `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY` | `S3_REGION` (→ `us-east-1`)    |
-| `smtp-byoe`        | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`   |                                |
-| `smtp-byoe-params` | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`   |                                |
+| Service            | Required env vars                                            | Optional                    |
+| ------------------ | ------------------------------------------------------------ | --------------------------- |
+| `byok`             | —                                                            | `ECHO_API_KEY` (→ empty)    |
+| `byoe`             | `ECHO_BYOE_BASE_URL`, `ECHO_BYOE_API_KEY`                    |                             |
+| `byoe-params`      | `ECHO_BYOE_BASE_URL`, `ECHO_BYOE_API_KEY`                    |                             |
+| `s3`               | `S3_ACCESS_KEY`, `S3_SECRET_KEY`                             |                             |
+| `s3-byoe`          | `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY` | `S3_REGION` (→ `us-east-1`) |
+| `s3-byoe-params`   | `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY` | `S3_REGION` (→ `us-east-1`) |
+| `smtp-byoe`        | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`   |                             |
+| `smtp-byoe-params` | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`   |                             |
 
 Notes:
 

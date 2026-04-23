@@ -13,7 +13,7 @@
     }
   },
   "list_price": {
-    "description": "Free — customer provides own bucket and credentials",
+    "description": "Free \u2014 customer provides own bucket and credentials",
     "price": "0",
     "type": "constant"
   },

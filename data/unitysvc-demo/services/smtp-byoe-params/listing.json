@@ -7,7 +7,7 @@
     }
   },
   "list_price": {
-    "description": "Free — customer provides own SMTP server",
+    "description": "Free \u2014 customer provides own SMTP server",
     "price": "0",
     "type": "constant"
   },

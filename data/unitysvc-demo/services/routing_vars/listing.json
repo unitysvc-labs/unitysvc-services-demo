@@ -14,7 +14,7 @@
   "schema": "listing_v1",
   "service_options": {
     "routing_vars": {
-      "backend_host": "https://echo.staging.svcmarket.com"
+      "backend_host": "https://echo.svcmarket.com"
     }
   },
   "status": "ready",
