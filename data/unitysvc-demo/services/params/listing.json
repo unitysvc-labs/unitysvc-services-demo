@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "Echo Relay (Parameterized)",
+  "display_name": "Demo HTTP Relay (Enrollment Params)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "api_connectivity"

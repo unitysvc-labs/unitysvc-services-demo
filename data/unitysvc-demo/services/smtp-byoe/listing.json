@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "SMTP Relay (Bring Your Own Endpoint)",
+  "display_name": "Demo SMTP Relay (BYOE)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "smtp_connectivity_v2"

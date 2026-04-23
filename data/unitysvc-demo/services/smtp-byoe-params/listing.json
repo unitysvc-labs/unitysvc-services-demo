@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "SMTP Relay (BYOE, parameterized secrets)",
+  "display_name": "Demo SMTP Relay (BYOE + Params)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "smtp_connectivity_v2"

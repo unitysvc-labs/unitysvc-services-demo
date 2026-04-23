@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "SMTP Relay (Demo)",
+  "display_name": "Demo SMTP Relay (Managed)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "smtp_connectivity_v2"

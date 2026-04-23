@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "Echo Relay (Recurrent)",
+  "display_name": "Demo HTTP Relay (Scheduled)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "api_connectivity"

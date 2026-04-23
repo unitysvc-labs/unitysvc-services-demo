@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "S3 Relay (BYOE, parameterized secrets)",
+  "display_name": "Demo S3 Content (BYOE + Params)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "s3_connectivity"

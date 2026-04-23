@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "Mock LLM",
+  "display_name": "Demo LLM Chat (Mock)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "api_connectivity"

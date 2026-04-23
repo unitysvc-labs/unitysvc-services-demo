@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "Echo Relay",
+  "display_name": "Demo HTTP Relay (Managed)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "api_connectivity"

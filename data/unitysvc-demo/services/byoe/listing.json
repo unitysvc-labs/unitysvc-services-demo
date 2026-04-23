@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "Echo Relay (Bring Your Own Endpoint)",
+  "display_name": "Demo HTTP Relay (BYOE)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "api_connectivity"

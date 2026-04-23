@@ -10,7 +10,7 @@
     "max_output_tokens": 2048,
     "mode": "chat"
   },
-  "display_name": "Mock LLM",
+  "display_name": "Demo LLM Chat (Mock)",
   "name": "llm",
   "payout_price": {
     "description": "Mock pricing \u2014 $0.50 / 1M input tokens, $1.50 / 1M output tokens",

@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "S3 Content (Demo)",
+  "display_name": "Demo S3 Content (Managed)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "s3_connectivity"

@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "Echo Relay (Bring Your Own Key)",
+  "display_name": "Demo HTTP Relay (BYOK)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "api_connectivity"

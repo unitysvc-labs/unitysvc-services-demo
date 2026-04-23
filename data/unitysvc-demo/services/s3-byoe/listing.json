@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "S3 Relay (Bring Your Own Bucket)",
+  "display_name": "Demo S3 Content (BYOE)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "s3_connectivity"
