@@ -3,11 +3,11 @@
   "display_name": "SMTP Relay (Bring Your Own Endpoint)",
   "documents": {
     "Connectivity test": {
-      "$doc_preset": "smtp_connectivity"
+      "$doc_preset": "smtp_connectivity_v2"
     }
   },
   "list_price": {
-    "description": "Free — customer provides own SMTP server",
+    "description": "Free \u2014 customer provides own SMTP server",
     "price": "0",
     "type": "constant"
   },

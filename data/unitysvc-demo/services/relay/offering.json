@@ -14,7 +14,7 @@
   "upstream_access_config": {
     "Echo Service": {
       "access_method": "http",
-      "base_url": "https://echo.staging.svcmarket.com"
+      "base_url": "https://echo.svcmarket.com"
     }
   }
 }
