@@ -24,7 +24,7 @@
       "host": "${ customer_secrets.SMTP_HOST }",
       "password": "${ customer_secrets.SMTP_PASSWORD }",
       "port": "${ customer_secrets.SMTP_PORT }",
-      "tls": true,
+      "tls": false,
       "username": "${ customer_secrets.SMTP_USERNAME }"
     }
   }

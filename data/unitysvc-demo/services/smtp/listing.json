@@ -3,7 +3,7 @@
   "display_name": "SMTP Relay (Demo)",
   "documents": {
     "Connectivity test": {
-      "$doc_preset": "smtp_connectivity"
+      "$doc_preset": "smtp_connectivity_v2"
     }
   },
   "list_price": {
