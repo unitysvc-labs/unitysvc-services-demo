@@ -19,7 +19,7 @@
   ],
   "time_created": "2026-04-18T00:00:00Z",
   "upstream_access_config": {
-    "S3 Upstream": {
+    "s3_upstream": {
       "access_key": "${ customer_secrets.{{ params.s3_access_key_secret }} }",
       "access_method": "http",
       "bucket": "${ customer_secrets.{{ params.s3_bucket_secret }} }",

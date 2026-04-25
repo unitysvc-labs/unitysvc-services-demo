@@ -19,7 +19,7 @@
   ],
   "time_created": "2026-04-18T00:00:00Z",
   "upstream_access_config": {
-    "Customer SMTP": {
+    "customer_smtp": {
       "access_method": "smtp",
       "host": "${ customer_secrets.{{ params.SMTP_HOST_SECRET }} }",
       "password": "${ customer_secrets.{{ params.SMTP_PASSWORD_SECRET }} }",

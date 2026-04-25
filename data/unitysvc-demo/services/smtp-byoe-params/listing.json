@@ -23,7 +23,7 @@
   "status": "ready",
   "time_created": "2026-04-18T00:00:00Z",
   "user_access_interfaces": {
-    "SMTP Gateway": {
+    "smtp_gateway": {
       "access_method": "smtp",
       "base_url": "${SMTP_GATEWAY_BASE_URL}",
       "routing_key": {

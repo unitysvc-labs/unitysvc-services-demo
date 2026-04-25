@@ -21,7 +21,7 @@
   "status": "ready",
   "time_created": "2026-04-18T00:00:00Z",
   "user_access_interfaces": {
-    "HTTP Gateway": {
+    "http_gateway": {
       "access_method": "http",
       "base_url": "${API_GATEWAY_BASE_URL}/demo/echo-recurrent"
     }

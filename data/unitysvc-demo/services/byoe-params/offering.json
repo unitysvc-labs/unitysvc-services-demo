@@ -13,7 +13,7 @@
   ],
   "time_created": "2026-04-18T00:00:00Z",
   "upstream_access_config": {
-    "Echo Service": {
+    "echo_service": {
       "access_method": "http",
       "api_key": "${ customer_secrets.{{ params.api_key_secret }} ?? }",
       "base_url": "${ customer_secrets.{{ params.base_url_secret }} }"

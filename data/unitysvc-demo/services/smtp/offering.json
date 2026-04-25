@@ -19,7 +19,7 @@
   ],
   "time_created": "2026-04-18T00:00:00Z",
   "upstream_access_config": {
-    "Mail Relay": {
+    "mail_relay": {
       "access_method": "smtp",
       "host": "mailpit.svcmarket.com",
       "port": 1025,
