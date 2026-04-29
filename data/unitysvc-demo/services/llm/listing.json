@@ -10,6 +10,9 @@
         "is_public": true,
         "name": "llm_request_template"
       }
+    },
+    "OpenAI SDK example (Python)": {
+      "$doc_preset": "llm_code_example_openai"
     }
   },
   "list_price": {
@@ -24,7 +27,10 @@
   "user_access_interfaces": {
     "http_gateway": {
       "access_method": "http",
-      "base_url": "${API_GATEWAY_BASE_URL}/demo/llm"
+      "base_url": "${API_GATEWAY_BASE_URL}/demo/llm",
+      "routing_key": {
+        "model": "mock-llm-chat"
+      }
     }
   }
 }
