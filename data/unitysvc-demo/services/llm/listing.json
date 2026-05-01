@@ -6,10 +6,7 @@
       "$doc_preset": "llm_connectivity"
     },
     "Default request body": {
-      "$doc_preset": {
-        "is_public": true,
-        "name": "llm_request_template"
-      }
+      "$doc_preset": "llm_request_template"
     },
     "OpenAI SDK example (Python)": {
       "$doc_preset": "llm_code_example_openai"
