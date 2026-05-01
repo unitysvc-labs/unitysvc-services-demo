@@ -3,7 +3,7 @@
   "display_name": "Demo HTTP Relay (Enrollment Params)",
   "documents": {
     "Connectivity test": {
-      "$doc_preset": "api_connectivity"
+      "$doc_preset": "llm_connectivity"
     }
   },
   "list_price": {
