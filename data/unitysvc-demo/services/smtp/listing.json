@@ -4,6 +4,9 @@
   "documents": {
     "Connectivity test": {
       "$doc_preset": "smtp_connectivity_v2"
+    },
+    "Python code example": {
+      "$doc_preset": "smtp_code_example"
     }
   },
   "list_price": {
