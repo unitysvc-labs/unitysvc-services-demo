@@ -32,7 +32,10 @@
   "upstream_access_config": {
     "mock_llm_api": {
       "access_method": "http",
-      "base_url": "https://mock.svcmarket.com/openai/v1"
+      "base_url": "https://mock.svcmarket.com/openai/v1",
+      "routing_key": {
+        "model": "mock-llm-chat"
+      }
     }
   }
 }
