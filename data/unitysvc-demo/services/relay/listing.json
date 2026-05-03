@@ -4,6 +4,12 @@
   "documents": {
     "Connectivity test": {
       "$doc_preset": "api_connectivity"
+    },
+    "Python code example": {
+      "$doc_preset": "api_code_example_requests"
+    },
+    "cURL code example": {
+      "$doc_preset": "api_code_example_shell"
     }
   },
   "list_price": {
