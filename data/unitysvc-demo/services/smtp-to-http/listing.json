@@ -3,10 +3,7 @@
   "display_name": "Demo SMTP-to-HTTP Bridge",
   "documents": {
     "Connectivity test": {
-      "$doc_preset": "smtp_connectivity_v2"
-    },
-    "Python code example": {
-      "$doc_preset": "smtp_code_example"
+      "$doc_preset": "api_connectivity"
     }
   },
   "list_price": {
