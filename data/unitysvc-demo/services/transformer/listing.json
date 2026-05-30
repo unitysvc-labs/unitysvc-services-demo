@@ -7,12 +7,6 @@
         "name": "webhook_connectivity",
         "webhook_path": "/mock/discord/api/webhooks/demo/demotoken"
       }
-    },
-    "cURL code example": {
-      "$doc_preset": {
-        "name": "webhook_code_example_shell",
-        "webhook_path": "/mock/discord/api/webhooks/demo/demotoken"
-      }
     }
   },
   "list_price": {
