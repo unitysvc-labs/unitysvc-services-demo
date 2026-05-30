@@ -2,12 +2,6 @@
   "currency": "USD",
   "display_name": "Demo Transformer (SMTP \u2192 Discord)",
   "documents": {
-    "Connectivity test": {
-      "$doc_preset": {
-        "name": "webhook_connectivity",
-        "webhook_path": "/mock/discord/api/webhooks/demo/demotoken"
-      }
-    },
     "cURL code example": {
       "$doc_preset": {
         "name": "smtp_transformer_code_example_shell",
