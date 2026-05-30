@@ -9,7 +9,10 @@
       }
     },
     "cURL code example": {
-      "$doc_preset": "smtp_canonical_code_example_shell"
+      "$doc_preset": {
+        "name": "smtp_transformer_code_example_shell",
+        "webhook_path": "/mock/discord/api/webhooks/demo/demotoken"
+      }
     }
   },
   "list_price": {
