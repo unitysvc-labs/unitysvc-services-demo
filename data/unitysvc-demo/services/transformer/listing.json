@@ -3,10 +3,24 @@
   "display_name": "Demo Transformer (SMTP \u2192 Discord)",
   "documents": {
     "Connectivity test": {
-      "$doc_preset": "smtp_connectivity_v2"
+      "$doc_preset": {
+        "meta": {
+          "test": {
+            "status": "skip"
+          }
+        },
+        "name": "smtp_connectivity_v2"
+      }
     },
     "Python code example": {
-      "$doc_preset": "smtp_code_example"
+      "$doc_preset": {
+        "meta": {
+          "test": {
+            "status": "skip"
+          }
+        },
+        "name": "smtp_code_example"
+      }
     }
   },
   "list_price": {

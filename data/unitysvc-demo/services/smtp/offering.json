@@ -2,7 +2,7 @@
   "capabilities": [
     "smtp_relay"
   ],
-  "description": "Simple SMTP relay. Routes messages through the UnitySVC SMTP gateway to the upstream mail server at `mailpit.svcmarket.com`. Seller-managed upstream; no customer enrollment or secrets required.",
+  "description": "Simple SMTP relay. Routes messages through the UnitySVC SMTP gateway to the upstream mail server at `mailpit.unitysvc.dev`. Seller-managed upstream; no customer enrollment or secrets required.",
   "name": "smtp",
   "payout_price": {
     "description": "Free demo relay",
@@ -21,7 +21,7 @@
   "upstream_access_config": {
     "mail_relay": {
       "access_method": "smtp",
-      "host": "mailpit.svcmarket.com",
+      "host": "mailpit.unitysvc.dev",
       "port": 1025,
       "tls": false
     }

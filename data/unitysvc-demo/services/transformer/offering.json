@@ -3,7 +3,7 @@
     "messaging",
     "notification"
   ],
-  "description": "Technical demonstration of the `raw.request_transformer` mechanism. Receives a canonical notification message via SMTP gateway and uses a Lua body-transformer template to reshape it into a Discord `embeds` payload, then delivers it to the mock Discord webhook at mock.svcmarket.com. No customer secrets required \u2014 the upstream is the platform-hosted mock endpoint.",
+  "description": "Technical demonstration of the `raw.request_transformer` mechanism. Receives a canonical notification message via SMTP gateway and uses a Lua body-transformer template to reshape it into a Discord `embeds` payload, then delivers it to the mock Discord webhook at mock.unitysvc.dev. No customer secrets required \u2014 the upstream is the platform-hosted mock endpoint.",
   "name": "transformer",
   "schema": "offering_v1",
   "service_type": "notification",
@@ -19,7 +19,7 @@
   "upstream_access_config": {
     "discord": {
       "access_method": "http",
-      "base_url": "https://mock.svcmarket.com",
+      "base_url": "https://mock.unitysvc.dev",
       "is_active": true,
       "is_primary": true,
       "raw": {
@@ -41,9 +41,6 @@
             "uri": "/mock/discord/api/webhooks/demo/demotoken"
           }
         }
-      },
-      "routing_key": {
-        "username": "transformer"
       }
     }
   }
