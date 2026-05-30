@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "Demo Message-to-Discord",
+  "display_name": "Demo Transformer (SMTP \u2192 Discord)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "smtp_connectivity_v2"
@@ -22,7 +22,7 @@
       "access_method": "smtp",
       "base_url": "${SMTP_GATEWAY_BASE_URL}",
       "routing_key": {
-        "username": "msg-to-discord"
+        "username": "transformer"
       }
     }
   }

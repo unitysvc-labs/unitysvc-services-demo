@@ -3,8 +3,8 @@
     "messaging",
     "notification"
   ],
-  "description": "Translates a canonical notification message to a Discord embed and delivers it to the mock Discord webhook at mock.svcmarket.com. Demonstrates the `raw.request_transformer` mechanism: the Lua template reshapes the incoming JSON (title, body, from) into a Discord `embeds` payload before the gateway forwards it. No customer secrets required \u2014 the upstream is the platform-hosted mock endpoint.",
-  "name": "msg-to-discord",
+  "description": "Technical demonstration of the `raw.request_transformer` mechanism. Receives a canonical notification message via SMTP gateway and uses a Lua body-transformer template to reshape it into a Discord `embeds` payload, then delivers it to the mock Discord webhook at mock.svcmarket.com. No customer secrets required \u2014 the upstream is the platform-hosted mock endpoint.",
+  "name": "transformer",
   "schema": "offering_v1",
   "service_type": "notification",
   "status": "ready",
@@ -43,7 +43,7 @@
         }
       },
       "routing_key": {
-        "username": "msg-to-discord"
+        "username": "transformer"
       }
     }
   }
