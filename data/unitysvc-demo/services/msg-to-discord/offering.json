@@ -1,0 +1,50 @@
+{
+  "capabilities": [
+    "messaging",
+    "notification"
+  ],
+  "description": "Translates a canonical notification message to a Discord embed and delivers it to the mock Discord webhook at mock.svcmarket.com. Demonstrates the `raw.request_transformer` mechanism: the Lua template reshapes the incoming JSON (title, body, from) into a Discord `embeds` payload before the gateway forwards it. No customer secrets required \u2014 the upstream is the platform-hosted mock endpoint.",
+  "name": "msg-to-discord",
+  "schema": "offering_v1",
+  "service_type": "notification",
+  "status": "ready",
+  "tags": [
+    "discord",
+    "messaging",
+    "notification",
+    "transformer",
+    "webhook"
+  ],
+  "time_created": "2026-05-29T00:00:00Z",
+  "upstream_access_config": {
+    "discord": {
+      "access_method": "http",
+      "base_url": "https://mock.svcmarket.com",
+      "is_active": true,
+      "is_primary": true,
+      "raw": {
+        "request_transformer": {
+          "body_transformer": {
+            "request": {
+              "input_format": "json",
+              "template": "eyJlbWJlZHMiOlt7InRpdGxlIjp7KiBfZXNjYXBlX2pzb24oX2JvZHkudGl0bGUpICp9LCJkZXNjcmlwdGlvbiI6eyogX2VzY2FwZV9qc29uKF9ib2R5LmJvZHkpICp9LCJmb290ZXIiOnsidGV4dCI6eyogX2VzY2FwZV9qc29uKCJmcm9tICIgLi4gKF9ib2R5LmZyb20gb3IgIiIpKSAqfX19XX0=",
+              "template_is_base64": true
+            }
+          },
+          "proxy_rewrite": {
+            "headers": {
+              "set": {
+                "Content-Type": "application/json"
+              }
+            },
+            "method": "POST",
+            "uri": "/mock/discord/api/webhooks/demo/demotoken"
+          }
+        }
+      },
+      "routing_key": {
+        "username": "msg-to-discord"
+      }
+    }
+  }
+}
