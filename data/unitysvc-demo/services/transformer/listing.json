@@ -3,7 +3,15 @@
   "display_name": "Demo Transformer (SMTP \u2192 Discord)",
   "documents": {
     "Connectivity test": {
-      "$doc_preset": "api_connectivity"
+      "category": "connectivity_test",
+      "description": "POST a minimal Discord embeds payload to the mock webhook and verify 204.",
+      "file_path": "connectivity.sh.j2",
+      "is_active": true,
+      "is_public": false,
+      "meta": {
+        "output_contains": "connectivity ok"
+      },
+      "mime_type": "bash"
     }
   },
   "list_price": {

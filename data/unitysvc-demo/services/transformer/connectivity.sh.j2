@@ -1,0 +1,34 @@
+#!/bin/bash
+# Connectivity test for the transformer service. Verifies the mock Discord
+# webhook endpoint accepts a minimal embeds payload and returns 204.
+set -o pipefail
+
+{% if local_testing %}
+WEBHOOK_URL="{{ service_base_url }}/mock/discord/api/webhooks/demo/demotoken"
+{% else %}
+# Gateway-mode: not applicable for this service (customer sends via SMTP, not HTTP).
+# This branch is never exercised by run-tests; present for completeness.
+WEBHOOK_URL="{{ service_base_url }}"
+{% endif %}
+
+status=$(curl -sS --max-time 5 \
+    -X POST \
+    -H "Content-Type: application/json" \
+    -d '{"embeds":[{"title":"connectivity check","description":"ping"}]}' \
+    -o /dev/null -w "%{http_code}" \
+    "$WEBHOOK_URL" 2>/dev/null)
+
+case "$status" in
+  204)
+    echo "connectivity ok (HTTP $status)"
+    exit 0
+    ;;
+  000)
+    echo "connectivity failed: could not connect to $WEBHOOK_URL" >&2
+    exit 1
+    ;;
+  *)
+    echo "connectivity failed: HTTP $status from $WEBHOOK_URL" >&2
+    exit 1
+    ;;
+esac
