@@ -24,7 +24,7 @@
       "base_path": "demo/",
       "bucket": "demo",
       "region": "us-east-1",
-      "s3_endpoint": "https://s3.svcmarket.com",
+      "s3_endpoint": "https://s3.unitysvc.dev",
       "secret_key": "${ secrets.S3_SECRET_KEY }",
       "storage_type": "s3"
     }

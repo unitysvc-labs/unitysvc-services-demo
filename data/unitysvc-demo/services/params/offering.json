@@ -14,7 +14,7 @@
   "upstream_access_config": {
     "echo_service": {
       "access_method": "http",
-      "base_url": "https://mock.svcmarket.com/openai",
+      "base_url": "https://mock.unitysvc.dev/openai",
       "routing_key": {
         "model": "{{ params.model }}"
       }

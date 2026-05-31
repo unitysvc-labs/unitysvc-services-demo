@@ -1,0 +1,25 @@
+schema = "offering_v1"
+name = "transformer"
+service_type = "notification"
+status = "ready"
+time_created = "2026-05-29T00:00:00Z"
+description = "Technical demonstration of the `raw.request_transformer` mechanism. Receives a canonical notification message via SMTP gateway and uses a Lua body-transformer template to reshape it into a Discord `embeds` payload, then delivers it to the mock Discord webhook at mock.unitysvc.dev. No customer secrets required — the upstream is the platform-hosted mock endpoint."
+capabilities = ["messaging", "notification"]
+tags = ["discord", "messaging", "notification", "transformer", "webhook"]
+
+[upstream_access_config.discord]
+access_method = "http"
+base_url = "https://mock.unitysvc.dev"
+is_active = true
+is_primary = true
+
+[upstream_access_config.discord.raw.request_transformer.body_transformer.request]
+input_format = "json"
+template = '{"embeds":[{"title":{* _escape_json(_body.title) *},"description":{* _escape_json(_body.body) *},"footer":{"text":{* _escape_json("from " .. (_body.from or "")) *}}}]}'
+
+[upstream_access_config.discord.raw.request_transformer.proxy_rewrite]
+method = "POST"
+uri = "/mock/discord/api/webhooks/demo/demotoken"
+
+[upstream_access_config.discord.raw.request_transformer.proxy_rewrite.headers.set]
+"Content-Type" = "application/json"

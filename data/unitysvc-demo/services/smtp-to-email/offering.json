@@ -1,0 +1,27 @@
+{
+  "capabilities": [
+    "notification"
+  ],
+  "description": "SMTP-to-Email bridge. Receives email through the UnitySVC SMTP gateway and forwards the faithful, lossless email envelope (`from`, `to`, `subject`, `text_body`, `html_body`, headers, attachments, spf/dkim) as an HTTP POST to the customer's own HTTP endpoint. Useful for integrating email-based triggers into internal webhooks, Zapier-style automations, or any HTTP receiver. The upstream URL is resolved from the customer secret `HTTP_RELAY_BASE_URL`.",
+  "name": "smtp-to-email",
+  "schema": "offering_v1",
+  "service_type": "notification",
+  "status": "ready",
+  "tags": [
+    "email",
+    "http",
+    "notification",
+    "smtp",
+    "webhook"
+  ],
+  "time_created": "2026-05-29T00:00:00Z",
+  "upstream_access_config": {
+    "http_relay": {
+      "access_method": "http",
+      "base_url": "${ customer_secrets.HTTP_RELAY_BASE_URL }",
+      "is_active": true,
+      "is_primary": true,
+      "payload_format": "email"
+    }
+  }
+}

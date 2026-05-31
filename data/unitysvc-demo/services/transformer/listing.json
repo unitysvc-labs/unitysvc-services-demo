@@ -1,0 +1,41 @@
+{
+  "currency": "USD",
+  "display_name": "Demo Transformer (SMTP \u2192 Discord)",
+  "documents": {
+    "Connectivity test": {
+      "$doc_preset": {
+        "name": "apprise_notify_connectivity_discord",
+        "webhook_path": "/mock/discord/api/webhooks/demo/demotoken"
+      }
+    },
+    "Python code example": {
+      "$doc_preset": {
+        "name": "apprise_notify_code_example_py_discord",
+        "webhook_path": "/mock/discord/api/webhooks/demo/demotoken"
+      }
+    },
+    "cURL code example": {
+      "$doc_preset": {
+        "name": "apprise_notify_code_example_sh_discord",
+        "webhook_path": "/mock/discord/api/webhooks/demo/demotoken"
+      }
+    }
+  },
+  "list_price": {
+    "description": "Free demo service",
+    "price": "0",
+    "type": "constant"
+  },
+  "schema": "listing_v1",
+  "status": "ready",
+  "time_created": "2026-05-29T00:00:00Z",
+  "user_access_interfaces": {
+    "smtp_gateway": {
+      "access_method": "smtp",
+      "base_url": "${SMTP_GATEWAY_BASE_URL}",
+      "routing_key": {
+        "username": "transformer"
+      }
+    }
+  }
+}

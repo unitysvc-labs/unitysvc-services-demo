@@ -15,7 +15,7 @@
   "upstream_access_config": {
     "mock_notify": {
       "access_method": "http",
-      "base_url": "https://mock.svcmarket.com"
+      "base_url": "https://mock.unitysvc.dev"
     }
   }
 }
