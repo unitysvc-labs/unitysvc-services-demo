@@ -1,9 +1,15 @@
 {
   "currency": "USD",
-  "display_name": "Demo Transformer (SMTP \u2192 Discord)",
+  "display_name": "Demo Transformer (apprise \u2192 Discord)",
   "documents": {
     "Connectivity test": {
-      "$doc_preset": "api_connectivity"
+      "$doc_preset": "apprise_notify_connectivity_discord"
+    },
+    "Python code example": {
+      "$doc_preset": "apprise_notify_code_example_py_discord"
+    },
+    "cURL code example": {
+      "$doc_preset": "apprise_notify_code_example_sh_discord"
     }
   },
   "list_price": {
@@ -15,12 +21,9 @@
   "status": "ready",
   "time_created": "2026-05-29T00:00:00Z",
   "user_access_interfaces": {
-    "smtp_gateway": {
-      "access_method": "smtp",
-      "base_url": "${SMTP_GATEWAY_BASE_URL}",
-      "routing_key": {
-        "username": "transformer"
-      }
+    "http_gateway": {
+      "access_method": "http",
+      "base_url": "${API_GATEWAY_BASE_URL}/demo/transformer"
     }
   }
 }
