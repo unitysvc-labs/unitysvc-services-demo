@@ -1,0 +1,27 @@
+{
+  "capabilities": [
+    "notification"
+  ],
+  "description": "SMTP-to-Apprise bridge. Receives email through the UnitySVC SMTP gateway and forwards it to the customer's HTTP endpoint using the strict apprise-api `/notify` payload (`{body, title, type, format}`). A drop-in for any apprise-api or mailrise receiver. The upstream URL is resolved from the customer secret `HTTP_RELAY_BASE_URL`.",
+  "name": "smtp-to-apprise",
+  "schema": "offering_v1",
+  "service_type": "notification",
+  "status": "ready",
+  "tags": [
+    "apprise",
+    "email",
+    "http",
+    "notification",
+    "smtp"
+  ],
+  "time_created": "2026-05-29T00:00:00Z",
+  "upstream_access_config": {
+    "http_relay": {
+      "access_method": "http",
+      "base_url": "${ customer_secrets.HTTP_RELAY_BASE_URL }",
+      "is_active": true,
+      "is_primary": true,
+      "payload_format": "apprise"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "Demo SMTP-to-HTTP Bridge",
+  "display_name": "Demo SMTP-to-Email Bridge",
   "documents": {
     "Connectivity test": {
       "$doc_preset": "api_connectivity"
@@ -19,7 +19,7 @@
       "access_method": "smtp",
       "base_url": "${SMTP_GATEWAY_BASE_URL}",
       "routing_key": {
-        "username": "smtp-to-http"
+        "username": "smtp-to-email"
       }
     }
   }
