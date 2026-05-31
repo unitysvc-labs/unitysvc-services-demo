@@ -3,22 +3,7 @@
   "display_name": "Demo Transformer (SMTP \u2192 Discord)",
   "documents": {
     "Connectivity test": {
-      "$doc_preset": {
-        "name": "apprise_notify_connectivity_discord",
-        "webhook_path": "/mock/discord/api/webhooks/demo/demotoken"
-      }
-    },
-    "Python code example": {
-      "$doc_preset": {
-        "name": "apprise_notify_code_example_py_discord",
-        "webhook_path": "/mock/discord/api/webhooks/demo/demotoken"
-      }
-    },
-    "cURL code example": {
-      "$doc_preset": {
-        "name": "apprise_notify_code_example_sh_discord",
-        "webhook_path": "/mock/discord/api/webhooks/demo/demotoken"
-      }
+      "$doc_preset": "api_connectivity"
     }
   },
   "list_price": {
