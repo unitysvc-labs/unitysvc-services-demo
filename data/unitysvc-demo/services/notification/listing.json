@@ -3,10 +3,10 @@
   "display_name": "Demo Notification Relay",
   "documents": {
     "Connectivity test": {
-      "$doc_preset": "notification_connectivity"
+      "$doc_preset": "notify_relay_connectivity_discord"
     },
     "Python code example": {
-      "$doc_preset": "notification_code_example"
+      "$doc_preset": "notify_relay_code_example_py_discord"
     }
   },
   "list_price": {
