@@ -14,7 +14,7 @@
   "schema": "listing_v1",
   "service_options": {
     "enrollment_vars": {
-      "code": "{{ enrollment_code(6) }}"
+      "code": "{{ enrollment.code }}"
     }
   },
   "status": "ready",

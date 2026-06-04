@@ -115,21 +115,27 @@ customer — each enrollment points at a different pair of secrets.
 ### `enrollment_vars` — Per-enrollment variables
 
 Demonstrates `service_options.enrollment_vars`: values rendered once per
-enrollment and reusable in any access interface template. Here a 6-char
-code is generated at enrollment time and embedded in both the user-facing
-gateway path and the upstream URL, so every enrollment gets a unique route.
+enrollment and reusable in any access interface template. Here the
+enrollment's intrinsic 4-character `code` is captured into an enrollment var
+and embedded in both the user-facing gateway path and the upstream URL, so
+every enrollment gets a unique route.
 
 - **listing.json** declares
-  `service_options.enrollment_vars.code = "{{ enrollment_code(6) }}"` and uses
+  `service_options.enrollment_vars.code = "{{ enrollment.code }}"` and uses
   `{{ enrollment_vars.code }}` inside
   `user_access_interfaces."HTTP Gateway".base_url`.
 - **offering.json** references the same `{{ enrollment_vars.code }}` inside
   `upstream_access_config."Echo Service".base_url` so the gateway forwards to
   the matching upstream path.
 
-Rendering runs in two phases: `enrollment_vars` first (so `{{ enrollment_code(6) }}`
-materialises to something like `VTXBNM`), then the access interface URL
-templates consume the rendered value.
+Rendering runs in two phases: `enrollment_vars` first (so `{{ enrollment.code }}`
+materialises to the enrollment's 4-character code, e.g. `CEFF`), then the
+access interface URL templates consume the rendered value.
+
+> Every enrollment also has a built-in `code` reachable directly at
+> `/e/<code>` regardless of `base_url` — `{{ enrollment.code }}` exposes that
+> same value. It replaces the old `enrollment_code()` template function (the
+> length argument is gone; the code is always 4 characters).
 
 ### `recurrent` — Scheduled execution
 
