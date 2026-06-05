@@ -16,7 +16,7 @@ points for your own services.
 | `byoe`             | HTTP    | no         | customer `base_url` + `api_key`    | BYOE pattern                                      |
 | `params`           | HTTP    | yes        | none                               | user parameter as routing key                     |
 | `byoe-params`      | HTTP    | yes        | customer, names via params         | parameterized secret names                        |
-| `enrollment_vars`  | HTTP    | yes        | none                               | `{{ enrollment.code }}` for per-enrollment URL    |
+| `enrollment`       | HTTP    | yes        | none                               | `{{ enrollment.code }}` for per-enrollment URL    |
 | `recurrent`        | HTTP    | yes        | none                               | `prompt_recurrence` scheduling                    |
 | `routing_vars`     | HTTP    | no         | none                               | post-activation seller knobs via `routing_vars`   |
 | `s3`               | S3      | no         | seller `access_key` / `secret_key` | S3-specific upstream fields                       |
@@ -112,7 +112,7 @@ customer — each enrollment points at a different pair of secrets.
   `ops_testing_parameters` pins them to `ECHO_BYOE_BASE_URL` /
   `ECHO_BYOE_API_KEY` for automated tests.
 
-### `enrollment_vars` — Per-enrollment code in URLs
+### `enrollment` — Per-enrollment code in URLs
 
 Demonstrates per-enrollment routing using the intrinsic `{{ enrollment.code }}`.
 Every enrollment has a unique 4-character `code`, so it can be embedded directly
@@ -168,7 +168,7 @@ values it references is safe.
   usvc services update routing_vars --set-routing-var backend_host=https://echo.other.example.com
   ```
 
-Contrast with `enrollment_vars` (per-enrollment, customer-initiated) and
+Contrast with `enrollment` (per-enrollment, customer-initiated) and
 `customer_secrets` (customer-owned, looked up at request time).
 The same pattern works for S3 (`{{ routing_vars.bucket }}`) or SMTP
 (`{{ routing_vars.host }}`).
