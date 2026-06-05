@@ -12,17 +12,12 @@
     "type": "constant"
   },
   "schema": "listing_v1",
-  "service_options": {
-    "enrollment_vars": {
-      "code": "{{ enrollment.code }}"
-    }
-  },
   "status": "ready",
   "time_created": "2026-04-18T00:00:00Z",
   "user_access_interfaces": {
     "http_gateway": {
       "access_method": "http",
-      "base_url": "${API_GATEWAY_BASE_URL}/demo/echo-enrollment-vars/{{ enrollment_vars.code }}"
+      "base_url": "${API_GATEWAY_BASE_URL}/demo/echo-enrollment-vars/{{ enrollment.code }}"
     }
   }
 }

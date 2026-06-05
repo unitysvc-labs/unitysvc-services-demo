@@ -302,7 +302,7 @@ Nothing else is supported. In particular:
 - **Bracket lookup** is *not* supported — `${ customer_secrets[X] }`
   will pass through as a literal string and the test will fail with a
   confusing stderr.
-- **Other Jinja namespaces** (`enrollment_vars.X`, `routing_vars.X`,
+- **Other Jinja namespaces** (`routing_vars.X`, `enrollment.X`,
   arbitrary expressions) inside the secret reference are *not*
   supported yet — use `params` only.
 
@@ -386,7 +386,7 @@ For each new example, before committing:
       `local_testing` scaffold and confirm it works.
 - [ ] Every `${ secrets.X }` / `${ customer_secrets.X }` reference
       uses either a literal name or `{{ params.KEY }}` — nothing
-      else (no bracket lookup, no `enrollment_vars`/`routing_vars`).
+      else (no bracket lookup, no `routing_vars`/`enrollment`).
 - [ ] Every `{{ params.KEY }}` used in a secret reference has a
       matching entry in `service_options.ops_testing_parameters`.
 - [ ] `usvc_seller data validate` passes.
