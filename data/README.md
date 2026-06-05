@@ -16,7 +16,7 @@ points for your own services.
 | `byoe`             | HTTP    | no         | customer `base_url` + `api_key`    | BYOE pattern                                      |
 | `params`           | HTTP    | yes        | none                               | user parameter as routing key                     |
 | `byoe-params`      | HTTP    | yes        | customer, names via params         | parameterized secret names                        |
-| `enrollment_vars`  | HTTP    | yes        | none                               | `enrollment_vars` for per-enrollment URL          |
+| `enrollment`       | HTTP    | yes        | none                               | `{{ enrollment.code }}` for per-enrollment URL    |
 | `recurrent`        | HTTP    | yes        | none                               | `prompt_recurrence` scheduling                    |
 | `routing_vars`     | HTTP    | no         | none                               | post-activation seller knobs via `routing_vars`   |
 | `s3`               | S3      | no         | seller `access_key` / `secret_key` | S3-specific upstream fields                       |
@@ -112,24 +112,26 @@ customer — each enrollment points at a different pair of secrets.
   `ops_testing_parameters` pins them to `ECHO_BYOE_BASE_URL` /
   `ECHO_BYOE_API_KEY` for automated tests.
 
-### `enrollment_vars` — Per-enrollment variables
+### `enrollment` — Per-enrollment code in URLs
 
-Demonstrates `service_options.enrollment_vars`: values rendered once per
-enrollment and reusable in any access interface template. Here a 6-char
-code is generated at enrollment time and embedded in both the user-facing
-gateway path and the upstream URL, so every enrollment gets a unique route.
+Demonstrates per-enrollment routing using the intrinsic `{{ enrollment.code }}`.
+Every enrollment has a unique 4-character `code`, so it can be embedded directly
+in any access interface template — no per-enrollment variable to declare.
 
-- **listing.json** declares
-  `service_options.enrollment_vars.code = "{{ enrollment_code(6) }}"` and uses
-  `{{ enrollment_vars.code }}` inside
-  `user_access_interfaces."HTTP Gateway".base_url`.
-- **offering.json** references the same `{{ enrollment_vars.code }}` inside
-  `upstream_access_config."Echo Service".base_url` so the gateway forwards to
-  the matching upstream path.
+- **listing.json** uses `{{ enrollment.code }}` inside
+  `user_access_interfaces.http_gateway.base_url`.
+- **offering.json** references the same `{{ enrollment.code }}` inside
+  `upstream_access_config.echo_service.base_url`, so the gateway forwards to the
+  matching upstream path.
 
-Rendering runs in two phases: `enrollment_vars` first (so `{{ enrollment_code(6) }}`
-materialises to something like `VTXBNM`), then the access interface URL
-templates consume the rendered value.
+Both templates render to the same code (e.g. `CEFF`) for a given enrollment, so
+every enrollment gets a unique route on both the gateway and upstream sides.
+
+> Every enrollment is also reachable directly at `/e/<code>` regardless of
+> `base_url`. The `{{ enrollment.code }}` value replaces both the old
+> `enrollment_code()` template function and the removed
+> `service_options.enrollment_vars` mechanism — reference `{{ enrollment.code }}`
+> directly.
 
 ### `recurrent` — Scheduled execution
 
@@ -166,7 +168,7 @@ values it references is safe.
   usvc services update routing_vars --set-routing-var backend_host=https://echo.other.example.com
   ```
 
-Contrast with `enrollment_vars` (per-enrollment, customer-initiated) and
+Contrast with `enrollment` (per-enrollment, customer-initiated) and
 `customer_secrets` (customer-owned, looked up at request time).
 The same pattern works for S3 (`{{ routing_vars.bucket }}`) or SMTP
 (`{{ routing_vars.host }}`).
