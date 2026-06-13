@@ -9,7 +9,9 @@ Run from the repo root (or pass the path):
 Transforms, per provider under ``data/<provider>/``:
 
 - ``data/`` → ``specs/`` ; ``data/<provider>/docs/`` → top-level ``docs/`` ;
-  ``data/README.md`` → ``specs/README.md``.
+  ``data/<provider>/scripts/`` → top-level ``scripts/`` (renaming
+  ``*services*.py`` → ``*specs*.py``; the populator's *content* must be updated
+  by hand afterwards) ; ``data/README.md`` → ``specs/README.md``.
 - each ``data/<provider>/services/<svc>/`` → ``specs/<provider>/<name>/`` where
   ``name`` is the (namespaced) service name; one folder per *Service* (per
   listing file).
@@ -103,6 +105,12 @@ def migrate(root: pathlib.Path, dry_run: bool) -> int:
             prov_src = prov_dir / "provider.json"
         provider = load_any(prov_src)
         provider.pop("schema", None)
+        # ``services_populator`` is repo/provider-level config, not per-service
+        # provider identity — don't duplicate it into every folder. The populator
+        # script itself is moved+renamed below; its invocation must be re-wired
+        # by hand afterwards.
+        if provider.pop("services_populator", None) is not None:
+            actions.append(f"[note] dropped services_populator from {prov_name} provider (re-wire the moved populator by hand)")
 
         svc_root = prov_dir / "services"
         for svc_dir in sorted(p for p in svc_root.iterdir() if p.is_dir()):
@@ -115,11 +123,17 @@ def migrate(root: pathlib.Path, dry_run: bool) -> int:
             for lst in lst_files:
                 override = svc_dir / f"{lst.stem}.override.json"
                 ov = json.loads(override.read_text()) if override.exists() else {}
-                short = ov.get("name") or (None if multi else svc_dir.name)
-                if not short:
-                    sys.exit(f"{lst}: multi-listing needs a name in {override.name}")
-                name = f"{prov_name}/{short}"
-                out = specs / prov_name / short
+                lst_data = load_any(lst)
+                # Name precedence: the listing's own ``name`` (already
+                # provider-namespaced in mature repos like parasail) > the
+                # override's ``name`` > the folder name (single-listing only).
+                raw = lst_data.get("name") or ov.get("name") or (None if multi else svc_dir.name)
+                if not raw:
+                    sys.exit(f"{lst}: multi-listing needs a name (in the listing or its override)")
+                # Namespace under the provider unless it already is. The full
+                # (possibly nested) name becomes the folder path under specs/.
+                name = raw if raw.startswith(f"{prov_name}/") else f"{prov_name}/{raw}"
+                out = specs / name
                 actions.append(f"{svc_dir.relative_to(root)}/{lst.name} -> {out.relative_to(root)}/ (name={name})")
                 if dry_run:
                     n_services += 1
@@ -139,7 +153,7 @@ def migrate(root: pathlib.Path, dry_run: bool) -> int:
                         )
 
                 if lst.suffix == ".json":
-                    d = json.loads(lst.read_text())
+                    d = dict(lst_data)
                     d.pop("schema", None)
                     d["name"] = name
                     write_json(out / "listing.json", d)
@@ -169,6 +183,38 @@ def migrate(root: pathlib.Path, dry_run: bool) -> int:
         if not dry_run:
             (specs).mkdir(parents=True, exist_ok=True)
             shutil.copy2(readme, specs / "README.md")
+
+    # templates/ -> top-level templates/ (the populator's render templates /
+    # local templates). Moved verbatim; restructuring to the admin-shaped local
+    # template format is later content work.
+    def move_dir_to_top(name: str, rename=None) -> None:
+        srcs = [p / name for p in providers if (p / name).is_dir()]
+        if (data / name).is_dir():
+            srcs.append(data / name)
+        for sdir in srcs:
+            for f in sorted(sdir.rglob("*")):
+                if not f.is_file():
+                    continue
+                rel = f.relative_to(sdir)
+                dest = root / name / rel
+                if rename:
+                    dest = rename(dest, f)
+                actions.append(f"{f.relative_to(root)} -> {dest.relative_to(root)}")
+                if not dry_run:
+                    if dest.exists():
+                        sys.exit(f"{name} collision: {dest}")
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(f, dest)
+
+    move_dir_to_top("templates")
+    # scripts/ -> top-level scripts/ ; rename *services*.py -> *specs*.py
+    # (content of the renamed populator must be updated by hand afterwards).
+    move_dir_to_top(
+        "scripts",
+        rename=lambda dest, f: dest.with_name(f.name.replace("services", "specs"))
+        if f.suffix == ".py" and "services" in f.name
+        else dest,
+    )
 
     if not dry_run:
         shutil.rmtree(data)
