@@ -1,0 +1,29 @@
+{
+  "currency": "USD",
+  "display_name": "Demo Transformer (apprise \u2192 Discord)",
+  "documents": {
+    "Connectivity test": {
+      "$doc_preset": "apprise_notify_connectivity_discord"
+    },
+    "Python code example": {
+      "$doc_preset": "apprise_notify_code_example_py_discord"
+    },
+    "cURL code example": {
+      "$doc_preset": "apprise_notify_code_example_sh_discord"
+    }
+  },
+  "list_price": {
+    "description": "Free demo service",
+    "price": "0",
+    "type": "constant"
+  },
+  "name": "unitysvc-demo/transformer",
+  "status": "ready",
+  "time_created": "2026-05-29T00:00:00Z",
+  "user_access_interfaces": {
+    "http_gateway": {
+      "access_method": "http",
+      "base_url": "${API_GATEWAY_BASE_URL}/demo/transformer"
+    }
+  }
+}

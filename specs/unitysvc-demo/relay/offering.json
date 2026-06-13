@@ -1,0 +1,19 @@
+{
+  "capabilities": [
+    "http_relay"
+  ],
+  "description": "Minimal managed HTTP relay. Proxies requests through the UnitySVC gateway to a fixed upstream echo endpoint. Demonstrates the simplest possible service definition: a static upstream URL with no authentication.",
+  "name": "relay",
+  "service_type": "proxy",
+  "status": "ready",
+  "tags": [
+    "gateway"
+  ],
+  "time_created": "2026-04-18T00:00:00Z",
+  "upstream_access_config": {
+    "echo_service": {
+      "access_method": "http",
+      "base_url": "https://echo.unitysvc.dev/relay"
+    }
+  }
+}

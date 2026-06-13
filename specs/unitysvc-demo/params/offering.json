@@ -1,0 +1,22 @@
+{
+  "capabilities": [
+    "http_relay"
+  ],
+  "description": "Parameterized echo relay. At enrollment the customer picks a `model` value; the platform uses it as the routing key so requests carrying `{\"model\": \"<value>\"}` are routed to this service.",
+  "name": "params",
+  "service_type": "proxy",
+  "status": "ready",
+  "tags": [
+    "gateway"
+  ],
+  "time_created": "2026-04-18T00:00:00Z",
+  "upstream_access_config": {
+    "echo_service": {
+      "access_method": "http",
+      "base_url": "https://mock.unitysvc.dev/openai",
+      "routing_key": {
+        "model": "{{ params.model }}"
+      }
+    }
+  }
+}

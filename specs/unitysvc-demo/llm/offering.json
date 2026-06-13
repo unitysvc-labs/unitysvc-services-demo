@@ -1,0 +1,40 @@
+{
+  "capabilities": [
+    "llm"
+  ],
+  "currency": "USD",
+  "description": "Mock LLM service for integration testing. Relays OpenAI-compatible chat completion requests through the UnitySVC API gateway to the mock upstream at `mock.unitysvc.dev/openai/v1` \u2014 lets you develop against a real gateway path without incurring provider costs.",
+  "details": {
+    "context_length": 8192,
+    "context_window": 8192,
+    "max_input_tokens": 8192,
+    "max_output_tokens": 2048,
+    "mode": "chat",
+    "parameter_count": null
+  },
+  "display_name": "Demo LLM Chat (Mock)",
+  "name": "llm",
+  "payout_price": {
+    "description": "Mock pricing \u2014 $0.50 / 1M input tokens, $1.50 / 1M output tokens",
+    "input": "0.50",
+    "output": "1.50",
+    "type": "one_million_tokens"
+  },
+  "service_type": "llm",
+  "status": "ready",
+  "tags": [
+    "ai",
+    "gateway",
+    "testing"
+  ],
+  "time_created": "2026-04-18T00:00:00Z",
+  "upstream_access_config": {
+    "mock_llm_api": {
+      "access_method": "http",
+      "base_url": "https://mock.unitysvc.dev/openai",
+      "routing_key": {
+        "model": "mock-llm-chat"
+      }
+    }
+  }
+}
