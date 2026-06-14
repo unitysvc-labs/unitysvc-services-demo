@@ -1,0 +1,31 @@
+{
+  "capabilities": [
+    "s3_browse",
+    "s3_download"
+  ],
+  "description": "Simple S3-compatible content service. Routes customer requests through the UnitySVC S3 gateway to a seller-managed upstream bucket on `s3.staging.svcpass.com`. No customer enrollment or secrets required; seller supplies upstream credentials via seller secrets.",
+  "name": "s3",
+  "payout_price": {
+    "description": "Free demo dataset",
+    "percentage": "0",
+    "type": "revenue_share"
+  },
+  "service_type": "content",
+  "status": "ready",
+  "tags": [
+    "gateway"
+  ],
+  "time_created": "2026-04-18T00:00:00Z",
+  "upstream_access_config": {
+    "s3_upstream": {
+      "access_key": "${ secrets.S3_ACCESS_KEY }",
+      "access_method": "http",
+      "base_path": "demo/",
+      "bucket": "demo",
+      "region": "us-east-1",
+      "s3_endpoint": "https://s3.unitysvc.dev",
+      "secret_key": "${ secrets.S3_SECRET_KEY }",
+      "storage_type": "s3"
+    }
+  }
+}

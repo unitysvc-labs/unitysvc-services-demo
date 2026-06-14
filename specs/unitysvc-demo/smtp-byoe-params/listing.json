@@ -1,0 +1,64 @@
+{
+  "currency": "USD",
+  "display_name": "Demo SMTP Relay (BYOE + Params)",
+  "documents": {
+    "Connectivity test": {
+      "$doc_preset": "smtp_connectivity_v2"
+    },
+    "Python code example": {
+      "$doc_preset": "smtp_code_example"
+    }
+  },
+  "list_price": {
+    "description": "Free \u2014 customer provides own SMTP server",
+    "price": "0",
+    "type": "constant"
+  },
+  "name": "unitysvc-demo/smtp-byoe-params",
+  "service_options": {
+    "ops_testing_parameters": {
+      "SMTP_HOST_SECRET": "SMTP_HOST",
+      "SMTP_PASSWORD_SECRET": "SMTP_PASSWORD",
+      "SMTP_PORT_SECRET": "SMTP_PORT",
+      "SMTP_USERNAME_SECRET": "SMTP_USERNAME"
+    }
+  },
+  "status": "ready",
+  "time_created": "2026-04-18T00:00:00Z",
+  "user_access_interfaces": {
+    "smtp_gateway": {
+      "access_method": "smtp",
+      "base_url": "${SMTP_GATEWAY_BASE_URL}",
+      "routing_key": {
+        "username": "smtp-byoe-params"
+      }
+    }
+  },
+  "user_parameters_schema": {
+    "properties": {
+      "SMTP_HOST_SECRET": {
+        "description": "Name of the customer secret containing the SMTP host",
+        "type": "string"
+      },
+      "SMTP_PASSWORD_SECRET": {
+        "description": "Name of the customer secret containing the SMTP password",
+        "type": "string"
+      },
+      "SMTP_PORT_SECRET": {
+        "description": "Name of the customer secret containing the SMTP port",
+        "type": "string"
+      },
+      "SMTP_USERNAME_SECRET": {
+        "description": "Name of the customer secret containing the SMTP username",
+        "type": "string"
+      }
+    },
+    "required": [
+      "SMTP_HOST_SECRET",
+      "SMTP_PORT_SECRET",
+      "SMTP_USERNAME_SECRET",
+      "SMTP_PASSWORD_SECRET"
+    ],
+    "type": "object"
+  }
+}

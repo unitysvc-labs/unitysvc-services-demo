@@ -1,0 +1,29 @@
+{
+  "currency": "USD",
+  "display_name": "Demo S3 Content (BYOE)",
+  "documents": {
+    "Connectivity test": {
+      "$doc_preset": "s3_connectivity"
+    },
+    "How to use this service": {
+      "$doc_preset": "s3_description"
+    },
+    "Python code example": {
+      "$doc_preset": "s3_code_example"
+    }
+  },
+  "list_price": {
+    "description": "Free \u2014 customer provides own bucket and credentials",
+    "price": "0",
+    "type": "constant"
+  },
+  "name": "unitysvc-demo/s3-byoe",
+  "status": "ready",
+  "time_created": "2026-04-18T00:00:00Z",
+  "user_access_interfaces": {
+    "s3_gateway": {
+      "access_method": "http",
+      "base_url": "${S3_GATEWAY_BASE_URL}/demo-s3-byoe"
+    }
+  }
+}

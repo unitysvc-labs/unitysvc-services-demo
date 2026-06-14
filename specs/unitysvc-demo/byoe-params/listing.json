@@ -1,0 +1,46 @@
+{
+  "currency": "USD",
+  "display_name": "Demo HTTP Relay (BYOE + Params)",
+  "documents": {
+    "Connectivity test": {
+      "$doc_preset": "api_connectivity"
+    }
+  },
+  "list_price": {
+    "description": "Free \u2014 customer provides own endpoint and API key",
+    "price": "0",
+    "type": "constant"
+  },
+  "name": "unitysvc-demo/byoe-params",
+  "service_options": {
+    "ops_testing_parameters": {
+      "api_key_secret": "ECHO_BYOE_API_KEY",
+      "base_url_secret": "ECHO_BYOE_BASE_URL"
+    }
+  },
+  "status": "ready",
+  "time_created": "2026-04-18T00:00:00Z",
+  "user_access_interfaces": {
+    "http_gateway": {
+      "access_method": "http",
+      "base_url": "${API_GATEWAY_BASE_URL}/demo/echo-byoe-params"
+    }
+  },
+  "user_parameters_schema": {
+    "properties": {
+      "api_key_secret": {
+        "default": "",
+        "description": "Name of the customer secret containing the API key (leave empty if no auth)",
+        "type": "string"
+      },
+      "base_url_secret": {
+        "description": "Name of the customer secret containing the upstream base URL",
+        "type": "string"
+      }
+    },
+    "required": [
+      "base_url_secret"
+    ],
+    "type": "object"
+  }
+}

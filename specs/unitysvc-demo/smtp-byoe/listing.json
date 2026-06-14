@@ -1,0 +1,29 @@
+{
+  "currency": "USD",
+  "display_name": "Demo SMTP Relay (BYOE)",
+  "documents": {
+    "Connectivity test": {
+      "$doc_preset": "smtp_connectivity_v2"
+    },
+    "Python code example": {
+      "$doc_preset": "smtp_code_example"
+    }
+  },
+  "list_price": {
+    "description": "Free \u2014 customer provides own SMTP server",
+    "price": "0",
+    "type": "constant"
+  },
+  "name": "unitysvc-demo/smtp-byoe",
+  "status": "ready",
+  "time_created": "2026-04-18T00:00:00Z",
+  "user_access_interfaces": {
+    "smtp_gateway": {
+      "access_method": "smtp",
+      "base_url": "${SMTP_GATEWAY_BASE_URL}",
+      "routing_key": {
+        "username": "smtp-byoe"
+      }
+    }
+  }
+}

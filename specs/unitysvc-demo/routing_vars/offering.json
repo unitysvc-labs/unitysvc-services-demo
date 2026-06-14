@@ -1,0 +1,19 @@
+{
+  "capabilities": [
+    "http_relay"
+  ],
+  "description": "Demonstrates `routing_vars` \u2014 operational knobs a seller can update post-activation without re-approval (see unitysvc/unitysvc#555). The upstream URL is taken from `{{ routing_vars.backend_host }}`, so the seller can retarget traffic (e.g. staging \u2192 prod) or rotate between backends with a single CLI call.",
+  "name": "routing_vars",
+  "service_type": "proxy",
+  "status": "ready",
+  "tags": [
+    "gateway"
+  ],
+  "time_created": "2026-04-18T00:00:00Z",
+  "upstream_access_config": {
+    "echo_service": {
+      "access_method": "http",
+      "base_url": "{{ routing_vars.backend_host }}"
+    }
+  }
+}
