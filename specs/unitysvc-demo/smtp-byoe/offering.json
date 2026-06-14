@@ -1,7 +1,5 @@
 {
-  "capabilities": [
-    "smtp_relay"
-  ],
+  "capabilities": ["smtp_relay"],
   "description": "BYOE SMTP relay. The customer connects their own SMTP server (Gmail, SendGrid, SES, etc.) through the UnitySVC gateway; host, port, username, and password are all resolved from the customer's secret store.",
   "name": "smtp-byoe",
   "payout_price": {
@@ -11,20 +9,16 @@
   },
   "service_type": "email",
   "status": "ready",
-  "tags": [
-    "email",
-    "smtp",
-    "byoe"
-  ],
+  "tags": ["email", "smtp", "byoe"],
   "time_created": "2026-04-18T00:00:00Z",
   "upstream_access_config": {
     "customer_smtp": {
       "access_method": "smtp",
-      "host": "${ customer_secrets.SMTP_HOST }",
-      "password": "${ customer_secrets.SMTP_PASSWORD }",
-      "port": "${ customer_secrets.SMTP_PORT }",
+      "host": "${ customer_secrets.SMTP_RELAY_HOST }",
+      "password": "${ customer_secrets.SMTP_RELAY_PASSWORD }",
+      "port": "${ customer_secrets.SMTP_RELAY_PORT }",
       "tls": false,
-      "username": "${ customer_secrets.SMTP_USERNAME }"
+      "username": "${ customer_secrets.SMTP_RELAY_USERNAME }"
     }
   }
 }
