@@ -17,6 +17,7 @@ points for your own services.
 | `params`           | HTTP    | yes        | none                               | user parameter as routing key                     |
 | `byoe-params`      | HTTP    | yes        | customer, names via params         | parameterized secret names                        |
 | `enrollment`       | HTTP    | yes        | none                               | `{{ enrollment.code }}` for per-enrollment URL    |
+| `multi-channel`    | HTTP    | plus only  | customer `api_key` (plus, optional)| two channels in one offering + channel pricing    |
 | `recurrent`        | HTTP    | yes        | none                               | `prompt_recurrence` scheduling                    |
 | `routing_vars`     | HTTP    | no         | none                               | post-activation seller knobs via `routing_vars`   |
 | `s3`               | S3      | no         | seller `access_key` / `secret_key` | S3-specific upstream fields                       |
@@ -132,6 +133,35 @@ every enrollment gets a unique route on both the gateway and upstream sides.
 > `enrollment_code()` template function and the removed
 > `service_options.enrollment_vars` mechanism — reference `{{ enrollment.code }}`
 > directly.
+
+### `multi-channel` — Multiple upstream channels in one offering
+
+The capstone HTTP pattern: a single offering exposes **two upstream access
+channels** and the gateway picks one per request — roughly `relay` and the
+enrollable half of `byoe-params` combined into one service. It demonstrates the
+multi-channel model (unitysvc/unitysvc#1281) and channel-based pricing
+(unitysvc/unitysvc#1305).
+
+- **offering.json** `upstream_access_config` declares two channels:
+  - `echo` — **managed**: a static upstream URL (`https://echo.unitysvc.dev/multi-channel`),
+    reached on the canonical gateway URL with no customer setup. The free *open*
+    channel.
+  - `plus` — **enrollable**: `base_url = "{{ params.base_url }}"` and
+    `api_key = "${ customer_secrets.{{ params.api_key_secret }} ?? }"`. Each
+    enrollment binds its own upstream via parameters and is reached at its own
+    `/e/<code>` URL. The metered channel.
+- **listing.json** uses **channel-based pricing** (`list_price.type: "channel"`):
+  the `echo` channel is free, `plus` is `$0.0001`/request, and `default: "echo"`.
+  The channel keys here must match the `upstream_access_config` keys. A
+  `user_parameters_schema` declares the `plus` parameters (`base_url` required,
+  `api_key_secret` optional), and `service_options.ops_testing_parameters` pins
+  them for automated tests.
+
+The enrollable `plus` channel co-exists with the free open `echo` channel: a
+canonical request is served by `echo`, while every `plus` enrollment gets its own
+`/e/<code>` route. The channel the gateway selects is also the pricing channel,
+so `echo` traffic is billed free and `plus` traffic is metered. The connectivity
+test exercises the default `echo` channel, so it runs with no secrets configured.
 
 ### `recurrent` — Scheduled execution
 
@@ -271,6 +301,7 @@ listed here require no environment configuration.
 | Service            | Required env vars                                            | Optional                    |
 | ------------------ | ------------------------------------------------------------ | --------------------------- |
 | `byok`             | —                                                            | `ECHO_API_KEY` (→ empty)    |
+| `multi-channel`    | —                                                            | `MULTI_CHANNEL_API_KEY` (→ empty) |
 | `byoe`             | `ECHO_BYOE_BASE_URL`, `ECHO_BYOE_API_KEY`                    |                             |
 | `byoe-params`      | `ECHO_BYOE_BASE_URL`, `ECHO_BYOE_API_KEY`                    |                             |
 | `s3`               | `S3_ACCESS_KEY`, `S3_SECRET_KEY`                             |                             |
