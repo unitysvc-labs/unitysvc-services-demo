@@ -3,10 +3,16 @@
   "display_name": "Demo Notification Relay",
   "documents": {
     "Connectivity test": {
-      "$doc_preset": "notify_relay_connectivity_discord"
+      "$doc_preset": {
+        "name": "notify_relay_connectivity_discord",
+        "webhook_path": ""
+      }
     },
     "Python code example": {
-      "$doc_preset": "notify_relay_code_example_py_discord"
+      "$doc_preset": {
+        "name": "notify_relay_code_example_py_discord",
+        "webhook_path": ""
+      }
     }
   },
   "list_price": {

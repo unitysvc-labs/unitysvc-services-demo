@@ -17,7 +17,7 @@ tags = [
 
 [upstream_access_config.discord]
 access_method = "http"
-base_url = "https://mock.unitysvc.dev"
+base_url = "https://mock.unitysvc.dev/discord/api/webhooks/demo/demotoken"
 is_active = true
 is_primary = true
 
@@ -25,9 +25,12 @@ is_primary = true
 input_format = "json"
 template = "{\"embeds\":[{\"title\":{* _escape_json(_body.title) *},\"description\":{* _escape_json(_body.body) *},\"footer\":{\"text\":{* _escape_json(\"from \" .. (_body.from or \"\")) *}}}]}"
 
+# NOTE: the upstream path lives in `base_url`, not in `proxy_rewrite.uri` — the
+# gateway rebuilds `upstream_uri` from the channel base_url after the request
+# transformer runs, so a `uri` set here is discarded. `proxy_rewrite` is still
+# the right place for header/method rewrites.
 [upstream_access_config.discord.raw.request_transformer.proxy_rewrite]
 method = "POST"
-uri = "/discord/api/webhooks/demo/demotoken"
 
 [upstream_access_config.discord.raw.request_transformer.proxy_rewrite.headers.set]
 Content-Type = "application/json"
