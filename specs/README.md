@@ -211,14 +211,14 @@ supplies upstream S3 credentials via seller secrets.
 
 - **offering.json** `upstream_access_config` uses S3-specific fields in addition
   to `access_method`: `storage_type: "s3"`, `s3_endpoint`, `bucket`, `region`,
-  and `access_key` / `secret_key` referencing `${ secrets.SVCMARKET_S3_ACCESS_KEY_ID }`
-  / `${ secrets.SVCMARKET_S3_SECRET_ACCESS_KEY }` from the seller's secret store.
+  and `access_key` / `secret_key` referencing `${ secrets.S3_ACCESS_KEY_ID }`
+  / `${ secrets.S3_SECRET_KEY }` from the seller's secret store.
 - **listing.json** `user_access_interfaces."S3 Gateway".base_url` uses
   `${S3_GATEWAY_BASE_URL}/s3` (not `${API_GATEWAY_BASE_URL}`), since S3 traffic
   goes through the dedicated S3 gateway.
 - `service_type` is `content`, capabilities are `s3_browse` and `s3_download`.
 
-Seller must create `SVCMARKET_S3_ACCESS_KEY_ID` and `SVCMARKET_S3_SECRET_ACCESS_KEY` in the
+Seller must create `S3_ACCESS_KEY_ID` and `S3_SECRET_KEY` in the
 seller secret store before the service can relay to the upstream bucket.
 
 ### `s3-byoe` — BYOE for S3
