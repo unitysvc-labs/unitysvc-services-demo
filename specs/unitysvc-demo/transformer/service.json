@@ -1,3 +1,7 @@
 {
-  "service_id": "c6f5ae51-d854-48ce-96e2-25cba533c4b3"
+  "display_name": "Demo Transformer (apprise \u2192 Discord)",
+  "name": "unitysvc-demo/transformer",
+  "service_id": "c6f5ae51-d854-48ce-96e2-25cba533c4b3",
+  "status": "updated",
+  "time_created": "2026-08-10T12:22:27.889934Z"
 }

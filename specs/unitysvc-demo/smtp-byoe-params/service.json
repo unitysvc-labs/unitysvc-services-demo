@@ -1,3 +1,7 @@
 {
-  "service_id": "20de9e5d-6cc1-44de-8579-dec924cb4e13"
+  "display_name": "Demo SMTP Relay (BYOE + Params)",
+  "name": "unitysvc-demo/smtp-byoe-params",
+  "service_id": "20de9e5d-6cc1-44de-8579-dec924cb4e13",
+  "status": "updated",
+  "time_created": "2026-08-10T12:22:26.939589Z"
 }

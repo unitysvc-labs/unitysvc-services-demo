@@ -353,22 +353,22 @@ Two stages, in order:
 ```json
 "service_options": {
   "ops_testing_parameters": {
-    "s3_access_key_secret":  "SVCMARKET_S3_ACCESS_KEY_ID",
+    "s3_access_key_secret":  "S3_ACCESS_KEY_ID",
     "s3_bucket_secret":      "SVCPASS_S3_BUCKET",
     "s3_region_secret":      "SVCPASS_S3_REGION",
     "s3_endpoint_secret":    "SVCPASS_S3_ENDPOINT",
-    "s3_secret_key_secret":  "SVCMARKET_S3_SECRET_ACCESS_KEY"
+    "s3_secret_key_secret":  "S3_SECRET_KEY"
   }
 }
 ```
 
 Before `usvc_seller data run-tests`:
 ```bash
-export SVCMARKET_S3_ACCESS_KEY_ID=…
+export S3_ACCESS_KEY_ID=…
 export SVCPASS_S3_BUCKET=demo-bucket
 export SVCPASS_S3_REGION=us-east-1
 export SVCPASS_S3_ENDPOINT=https://s3.staging.svcpass.com
-export SVCMARKET_S3_SECRET_ACCESS_KEY=…
+export S3_SECRET_KEY=…
 ```
 
 ## Authoring checklist

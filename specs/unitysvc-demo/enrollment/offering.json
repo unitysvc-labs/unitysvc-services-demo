@@ -2,7 +2,7 @@
   "capabilities": [
     "http_relay"
   ],
-  "description": "Demonstrates per-enrollment URLs. Every enrollment's intrinsic 4-character `{{ enrollment.code }}` is substituted directly into both the customer-facing gateway URL and the upstream URL, giving every enrollment a unique path.",
+  "description": "Demonstrates per-enrollment URLs.\n\nEvery enrollment's intrinsic 4-character `{{ enrollment.code }}` is substituted directly into both the customer-facing gateway URL and the upstream URL, giving every enrollment a unique path.",
   "name": "enrollment",
   "service_type": "proxy",
   "status": "ready",

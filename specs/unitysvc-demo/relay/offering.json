@@ -2,7 +2,7 @@
   "capabilities": [
     "http_relay"
   ],
-  "description": "Minimal managed HTTP relay. Proxies requests through the UnitySVC gateway to a fixed upstream echo endpoint. Demonstrates the simplest possible service definition: a static upstream URL with no authentication.",
+  "description": "Minimal managed HTTP relay.\n\nProxies requests through the UnitySVC gateway to a fixed upstream echo endpoint. Demonstrates the simplest possible service definition: a static upstream URL with no authentication.",
   "name": "relay",
   "service_type": "proxy",
   "status": "ready",

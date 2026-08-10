@@ -1,3 +1,7 @@
 {
-  "service_id": "f48177ab-15c3-46a5-b274-b9957e3b0d9d"
+  "display_name": "Demo SMTP Relay (BYOE)",
+  "name": "unitysvc-demo/smtp-byoe",
+  "service_id": "f48177ab-15c3-46a5-b274-b9957e3b0d9d",
+  "status": "updated",
+  "time_created": "2026-08-10T12:22:26.901654Z"
 }

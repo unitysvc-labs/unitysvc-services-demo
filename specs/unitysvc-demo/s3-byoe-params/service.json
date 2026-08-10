@@ -1,3 +1,7 @@
 {
-  "service_id": "a0905707-8804-4390-a926-68a34411ed91"
+  "display_name": "Demo S3 Content (BYOE + Params)",
+  "name": "unitysvc-demo/s3-byoe-params",
+  "service_id": "a0905707-8804-4390-a926-68a34411ed91",
+  "status": "updated",
+  "time_created": "2026-08-10T12:22:26.613905Z"
 }

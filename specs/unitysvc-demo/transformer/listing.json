@@ -3,13 +3,16 @@
   "display_name": "Demo Transformer (apprise \u2192 Discord)",
   "documents": {
     "Connectivity test": {
-      "$doc_preset": "apprise_notify_connectivity_discord"
+      "$doc_preset": {
+        "local_url": "https://mock.unitysvc.dev/discord/api/webhooks/demo/demotoken",
+        "name": "msg_to_channel_connectivity_discord"
+      }
     },
     "Python code example": {
-      "$doc_preset": "apprise_notify_code_example_py_discord"
-    },
-    "cURL code example": {
-      "$doc_preset": "apprise_notify_code_example_sh_discord"
+      "$doc_preset": {
+        "local_url": "https://mock.unitysvc.dev/discord/api/webhooks/demo/demotoken",
+        "name": "msg_to_channel_code_example_py_discord"
+      }
     }
   },
   "list_price": {

@@ -2,8 +2,8 @@
 
 This folder holds minimal working examples of UnitySVC services under
 `unitysvc-demo/`, one per delivery pattern. HTTP examples relay to
-`https://echo.svcmarket.com`; S3 uses `s3.staging.svcpass.com`;
-SMTP uses `mail.svcmarket.com`. Use them as copy-paste starting
+`https://echo.unitysvc.dev`; S3 uses `s3.unitysvc.dev`;
+SMTP uses `mailpit.unitysvc.dev`. Use them as copy-paste starting
 points for your own services.
 
 ## Service overview
@@ -48,7 +48,7 @@ that make a service an LLM on the marketplace.
   a `details` block with `context_window`, `max_input_tokens`,
   `max_output_tokens`, `mode: "chat"`, and a token-based `payout_price`
   (`type: "one_million_tokens"`) with split `input` / `output` rates.
-  Upstream is `https://mock.svcmarket.com/openai/v1` (OpenAI-compatible).
+  Upstream is `https://mock.unitysvc.dev/openai/v1` (OpenAI-compatible).
 - **listing.json** uses token-based `list_price` (input/output split), gateway
   path `${API_GATEWAY_BASE_URL}/demo/llm`, and a `request_template` document
   (`docs/llm/request-template.json`) that pre-fills the marketplace playground
@@ -188,7 +188,7 @@ cycle. Because the admin approves the _template_ at publish time, changing
 values it references is safe.
 
 - **listing.json** declares the initial values under
-  `service_options.routing_vars` (`backend_host: "https://echo.svcmarket.com"`).
+  `service_options.routing_vars` (`backend_host: "https://echo.unitysvc.dev/routing-vars"`).
 - **offering.json** references them as `{{ routing_vars.backend_host }}` in
   `upstream_access_config."Echo Service".base_url`. Rendered at request time
   only (not at enrollment).
@@ -211,14 +211,14 @@ supplies upstream S3 credentials via seller secrets.
 
 - **offering.json** `upstream_access_config` uses S3-specific fields in addition
   to `access_method`: `storage_type: "s3"`, `s3_endpoint`, `bucket`, `region`,
-  and `access_key` / `secret_key` referencing `${ secrets.SVCMARKET_S3_ACCESS_KEY_ID }`
-  / `${ secrets.SVCMARKET_S3_SECRET_ACCESS_KEY }` from the seller's secret store.
+  and `access_key` / `secret_key` referencing `${ secrets.S3_ACCESS_KEY_ID }`
+  / `${ secrets.S3_SECRET_KEY }` from the seller's secret store.
 - **listing.json** `user_access_interfaces."S3 Gateway".base_url` uses
   `${S3_GATEWAY_BASE_URL}/s3` (not `${API_GATEWAY_BASE_URL}`), since S3 traffic
   goes through the dedicated S3 gateway.
 - `service_type` is `content`, capabilities are `s3_browse` and `s3_download`.
 
-Seller must create `SVCMARKET_S3_ACCESS_KEY_ID` and `SVCMARKET_S3_SECRET_ACCESS_KEY` in the
+Seller must create `S3_ACCESS_KEY_ID` and `S3_SECRET_KEY` in the
 seller secret store before the service can relay to the upstream bucket.
 
 ### `s3-byoe` — BYOE for S3
@@ -252,7 +252,7 @@ HTTP or S3 gateway). Seller-managed upstream; no customer enrollment or
 secrets required.
 
 - **offering.json** `upstream_access_config` uses `access_method: "smtp"` plus
-  SMTP-specific fields: `host: "mail.svcmarket.com"`, `port: 587`,
+  SMTP-specific fields: `host: "mailpit.unitysvc.dev"`, `port: 587`,
   `tls: true`.
 - **listing.json** `user_access_interfaces."SMTP Gateway"` uses
   `access_method: "smtp"`, `base_url: "${SMTP_GATEWAY_BASE_URL}"`, and a

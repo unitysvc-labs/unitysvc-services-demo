@@ -2,7 +2,7 @@
   "capabilities": [
     "http_relay"
   ],
-  "description": "Scheduled echo relay. Demonstrates recurrent services: the platform fires a request at the upstream echo endpoint on the schedule each customer chooses at enrollment time.",
+  "description": "Scheduled echo relay.\n\nDemonstrates recurrent services: the platform fires a request at the upstream echo endpoint on the schedule each customer chooses at enrollment time.",
   "name": "recurrent",
   "service_type": "proxy",
   "status": "ready",

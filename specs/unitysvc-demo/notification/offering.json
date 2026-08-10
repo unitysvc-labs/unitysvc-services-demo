@@ -2,7 +2,7 @@
   "capabilities": [
     "notification"
   ],
-  "description": "Minimal managed notification relay. Proxies POST /send requests through the UnitySVC notify gateway to a fixed mock upstream that echoes the payload. Demonstrates the simplest notification service definition: a static upstream URL, no per-channel routing, no auth.",
+  "description": "Minimal managed notification relay.\n\nProxies POST /send requests through the UnitySVC notify gateway to a fixed mock upstream that echoes the payload. Demonstrates the simplest notification service definition: a static upstream URL, no per-channel routing, no auth.",
   "name": "notification",
   "service_type": "notification",
   "status": "ready",
@@ -14,7 +14,7 @@
   "upstream_access_config": {
     "mock_notify": {
       "access_method": "http",
-      "base_url": "https://mock.unitysvc.dev"
+      "base_url": "https://mock.unitysvc.dev/webhook"
     }
   }
 }
