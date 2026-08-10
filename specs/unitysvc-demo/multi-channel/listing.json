@@ -1,0 +1,61 @@
+{
+  "currency": "USD",
+  "display_name": "Demo Multi-Channel Relay",
+  "documents": {
+    "Connectivity test": {
+      "$doc_preset": "api_connectivity"
+    }
+  },
+  "list_price": {
+    "channels": {
+      "echo": {
+        "description": "Free \u2014 managed static echo endpoint on the canonical URL",
+        "price": "0",
+        "type": "constant"
+      },
+      "plus": {
+        "description": "$1 per 10,000 requests \u2014 per-enrollment endpoint you bind via parameters",
+        "price": "0.0001",
+        "type": "constant"
+      }
+    },
+    "default": "echo",
+    "type": "channel"
+  },
+  "name": "unitysvc-demo/multi-channel",
+  "service_options": {
+    "ops_testing_parameters": {
+      "api_key_secret": "MULTI_CHANNEL_API_KEY",
+      "base_url": "https://echo.unitysvc.dev/multi-channel-plus"
+    }
+  },
+  "status": "ready",
+  "time_created": "2026-06-18T00:00:00Z",
+  "user_access_interfaces": {
+    "enrollment": {
+      "access_method": "http",
+      "base_url": "${API_GATEWAY_BASE_URL}/{{ enrollment.code }}"
+    },
+    "http_gateway": {
+      "access_method": "http",
+      "base_url": "${API_GATEWAY_BASE_URL}/demo/multi-channel"
+    }
+  },
+  "user_parameters_schema": {
+    "properties": {
+      "api_key_secret": {
+        "default": "MULTI_CHANNEL_API_KEY",
+        "description": "Name of the customer secret holding the upstream API key for this enrollment. Defaults to MULTI_CHANNEL_API_KEY; if that secret is unset the `?? ` fallback resolves it to empty and the gateway sends no upstream key.",
+        "type": "string"
+      },
+      "base_url": {
+        "description": "Upstream base URL for this enrollment, specified directly (e.g. https://api.example.com)",
+        "type": "string"
+      }
+    },
+    "required": [
+      "base_url"
+    ],
+    "type": "object"
+  }
+}
