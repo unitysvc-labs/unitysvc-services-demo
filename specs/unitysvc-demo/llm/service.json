@@ -1,3 +1,7 @@
 {
-  "service_id": "3e28b1d5-2c0e-4aa5-bfe9-8f2cecf68f08"
+  "display_name": "Demo LLM Chat (Mock)",
+  "name": "unitysvc-demo/llm",
+  "service_id": "3e28b1d5-2c0e-4aa5-bfe9-8f2cecf68f08",
+  "status": "updated",
+  "time_created": "2026-08-10T12:22:24.712947Z"
 }
