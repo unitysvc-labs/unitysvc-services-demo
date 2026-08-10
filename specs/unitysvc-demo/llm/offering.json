@@ -3,7 +3,7 @@
     "llm"
   ],
   "currency": "USD",
-  "description": "Mock LLM service for integration testing. Relays OpenAI-compatible chat completion requests through the UnitySVC API gateway to the mock upstream at `mock.unitysvc.dev/openai/v1` \u2014 lets you develop against a real gateway path without incurring provider costs.",
+  "description": "Mock LLM service for integration testing.\n\nRelays OpenAI-compatible chat completion requests through the UnitySVC API gateway to the mock upstream at `mock.unitysvc.dev/openai/v1` \u2014 lets you develop against a real gateway path without incurring provider costs.",
   "details": {
     "context_length": 8192,
     "context_window": 8192,

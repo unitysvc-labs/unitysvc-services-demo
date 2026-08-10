@@ -2,7 +2,7 @@
   "capabilities": [
     "http_relay"
   ],
-  "description": "BYOK HTTP relay. Proxies requests to the echo endpoint using an API key supplied by the customer via the customer secret store.",
+  "description": "BYOK HTTP relay.\n\nProxies requests to the echo endpoint using an API key supplied by the customer via the customer secret store.",
   "name": "byok",
   "service_type": "proxy",
   "status": "ready",

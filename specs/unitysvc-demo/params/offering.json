@@ -2,7 +2,7 @@
   "capabilities": [
     "http_relay"
   ],
-  "description": "Parameterized echo relay. At enrollment the customer picks a `model` value; the platform uses it as the routing key so requests carrying `{\"model\": \"<value>\"}` are routed to this service.",
+  "description": "Parameterized echo relay.\n\nAt enrollment the customer picks a `model` value; the platform uses it as the routing key so requests carrying `{\"model\": \"<value>\"}` are routed to this service.",
   "name": "params",
   "service_type": "proxy",
   "status": "ready",

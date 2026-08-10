@@ -2,7 +2,7 @@
   "capabilities": [
     "http_relay"
   ],
-  "description": "BYOE HTTP relay. The customer supplies both the upstream endpoint URL and API key via customer secrets, so each customer routes to their own echo instance.",
+  "description": "BYOE HTTP relay.\n\nThe customer supplies both the upstream endpoint URL and API key via customer secrets, so each customer routes to their own echo instance.",
   "name": "byoe",
   "service_type": "proxy",
   "status": "ready",

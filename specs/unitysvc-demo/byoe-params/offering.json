@@ -2,7 +2,7 @@
   "capabilities": [
     "http_relay"
   ],
-  "description": "BYOE echo relay with per-enrollment secret selection. Parameters name which customer secrets hold the upstream URL and API key, so one offering can serve many distinct backends per customer.",
+  "description": "BYOE echo relay with per-enrollment secret selection.\n\nParameters name which customer secrets hold the upstream URL and API key, so one offering can serve many distinct backends per customer.",
   "name": "byoe-params",
   "service_type": "proxy",
   "status": "ready",
