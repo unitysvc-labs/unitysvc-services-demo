@@ -3,7 +3,7 @@
     "s3_browse",
     "s3_download"
   ],
-  "description": "Simple S3-compatible content service.\n\nRoutes customer requests through the UnitySVC S3 gateway to a seller-managed upstream bucket on `s3.staging.svcpass.com`. No customer enrollment or secrets required; seller supplies upstream credentials via seller secrets.",
+  "description": "Simple S3-compatible content service.\n\nRoutes customer requests through the UnitySVC S3 gateway to a seller-managed upstream bucket on `s3.unitysvc.dev`. No customer enrollment or secrets required; seller supplies upstream credentials via seller secrets.",
   "name": "s3",
   "payout_price": {
     "description": "Free demo dataset",
