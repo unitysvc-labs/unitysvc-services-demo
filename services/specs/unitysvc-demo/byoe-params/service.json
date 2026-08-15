@@ -2,6 +2,6 @@
   "display_name": "Demo HTTP Relay (BYOE + Params)",
   "name": "unitysvc-demo/byoe-params",
   "service_id": "41424339-2256-433b-87f7-9c7c3ef3ab50",
-  "status": "updated",
+  "status": "unchanged",
   "time_created": "2026-08-10T12:22:23.161898Z"
 }
