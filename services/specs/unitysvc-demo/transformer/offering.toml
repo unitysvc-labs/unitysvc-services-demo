@@ -2,7 +2,8 @@ name = "transformer"
 service_type = "notification"
 status = "ready"
 time_created = "2026-05-29T00:00:00Z"
-description = "Technical demonstration of the `raw.request_transformer` mechanism.\n\nReceives a canonical Apprise notification envelope (`{title, body, from}`) over HTTP and uses a Lua body-transformer template to reshape it into a Discord `embeds` payload, then delivers it to the mock Discord webhook at mock.unitysvc.dev. No customer secrets required — the upstream is the platform-hosted mock endpoint."
+summary = "Technical demonstration of the `raw.request_transformer` mechanism."
+description = "Receives a canonical Apprise notification envelope (`{title, body, from}`) over HTTP and uses a Lua body-transformer template to reshape it into a Discord `embeds` payload, then delivers it to the mock Discord webhook at mock.unitysvc.dev. No customer secrets required — the upstream is the platform-hosted mock endpoint."
 capabilities = [
     "messaging",
     "notification",
