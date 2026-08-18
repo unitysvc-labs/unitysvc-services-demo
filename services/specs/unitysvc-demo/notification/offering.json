@@ -2,10 +2,11 @@
   "capabilities": [
     "notification"
   ],
-  "description": "Minimal managed notification relay.\n\nProxies POST /send requests through the UnitySVC notify gateway to a fixed mock upstream that echoes the payload. Demonstrates the simplest notification service definition: a static upstream URL, no per-channel routing, no auth.",
+  "description": "Proxies POST /send requests through the UnitySVC notify gateway to a fixed mock upstream that echoes the payload. Demonstrates the simplest notification service definition: a static upstream URL, no per-channel routing, no auth.",
   "name": "notification",
   "service_type": "notification",
   "status": "ready",
+  "summary": "Minimal managed notification relay.",
   "tags": [
     "gateway",
     "notification"

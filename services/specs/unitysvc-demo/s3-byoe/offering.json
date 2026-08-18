@@ -3,7 +3,7 @@
     "s3_browse",
     "s3_download"
   ],
-  "description": "BYOE S3 relay.\n\nCustomer supplies the upstream bucket, endpoint, and credentials through their own secret store; the gateway proxies S3 requests to the customer's storage. Region defaults to us-east-1 (via `${ customer_secrets.S3_REGION ?? us-east-1 }`) if the customer hasn't set the secret.",
+  "description": "Customer supplies the upstream bucket, endpoint, and credentials through their own secret store; the gateway proxies S3 requests to the customer's storage. Region defaults to us-east-1 (via `${ customer_secrets.S3_REGION ?? us-east-1 }`) if the customer hasn't set the secret.",
   "name": "s3-byoe",
   "payout_price": {
     "description": "No platform commission \u2014 customer uses own bucket",
@@ -12,6 +12,7 @@
   },
   "service_type": "content",
   "status": "ready",
+  "summary": "BYOE S3 relay.",
   "tags": [
     "byoe",
     "gateway"

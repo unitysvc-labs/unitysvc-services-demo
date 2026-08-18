@@ -2,7 +2,7 @@
   "capabilities": [
     "http_relay"
   ],
-  "description": "Multi-channel HTTP relay: one offering exposing two upstream access channels.\n\nThe free `echo` channel is a managed static endpoint reached on the canonical gateway URL; the metered `plus` channel is per-enrollment, each enrollment binding its own upstream `base_url` (and optional API key) via parameters and reached at its own `/e/<code>` URL. Demonstrates channel-based pricing and an enrollable plus channel co-existing with a free open channel.",
+  "description": "The free `echo` channel is a managed static endpoint reached on the canonical gateway URL; the metered `plus` channel is per-enrollment, each enrollment binding its own upstream `base_url` (and optional API key) via parameters and reached at its own `/e/<code>` URL. Demonstrates channel-based pricing and an enrollable plus channel co-existing with a free open channel.",
   "name": "multi-channel",
   "payout_price": {
     "description": "Demo service \u2014 no platform commission",
@@ -11,6 +11,7 @@
   },
   "service_type": "proxy",
   "status": "ready",
+  "summary": "Multi-channel HTTP relay: one offering exposing two upstream access channels.",
   "tags": [
     "enrollment",
     "gateway",
