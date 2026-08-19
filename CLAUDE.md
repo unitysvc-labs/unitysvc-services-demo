@@ -95,8 +95,8 @@ real value). Seed them from the repo-committed manifest, never GitHub variables:
   `grep -rho '\${ customer_secrets\.[A-Z_]*' services/specs/ | sort -u` should have no
   name missing from it. A missing name is silently skipped ⇒ the gateway test
   fails with no obvious cause.
-- **Namespace** secret names by service (`HTTP_RELAY_BASE_URL`,
-  `SMTP_RELAY_PASSWORD`, `<PROVIDER>_API_KEY`) — bare names collide.
+- **Namespace** secret names by service (`DEMO_HTTP_RELAY_BASE_URL`,
+  `DEMO_SMTP_RELAY_PASSWORD`, `<PROVIDER>_API_KEY`) — bare names collide.
 - Sensitive (key/password/token) → `customer_secrets`. Operational
   (host/port/url/flag) → a direct `{{ params.X }}` with a default, not a secret.
 

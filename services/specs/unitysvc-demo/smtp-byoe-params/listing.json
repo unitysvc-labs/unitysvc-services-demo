@@ -17,10 +17,10 @@
   "name": "unitysvc-demo/smtp-byoe-params",
   "service_options": {
     "ops_testing_parameters": {
-      "SMTP_HOST_SECRET": "SMTP_RELAY_HOST",
-      "SMTP_PASSWORD_SECRET": "SMTP_RELAY_PASSWORD",
-      "SMTP_PORT_SECRET": "SMTP_RELAY_PORT",
-      "SMTP_USERNAME_SECRET": "SMTP_RELAY_USERNAME"
+      "SMTP_HOST_SECRET": "DEMO_SMTP_RELAY_HOST",
+      "SMTP_PASSWORD_SECRET": "DEMO_SMTP_RELAY_PASSWORD",
+      "SMTP_PORT_SECRET": "DEMO_SMTP_RELAY_PORT",
+      "SMTP_USERNAME_SECRET": "DEMO_SMTP_RELAY_USERNAME"
     }
   },
   "status": "ready",
