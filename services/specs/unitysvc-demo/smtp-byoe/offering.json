@@ -21,11 +21,11 @@
   "upstream_access_config": {
     "customer_smtp": {
       "access_method": "smtp",
-      "host": "${ customer_secrets.SMTP_RELAY_HOST }",
-      "password": "${ customer_secrets.SMTP_RELAY_PASSWORD }",
-      "port": "${ customer_secrets.SMTP_RELAY_PORT }",
+      "host": "${ customer_secrets.DEMO_SMTP_RELAY_HOST }",
+      "password": "${ customer_secrets.DEMO_SMTP_RELAY_PASSWORD }",
+      "port": "${ customer_secrets.DEMO_SMTP_RELAY_PORT }",
       "tls": false,
-      "username": "${ customer_secrets.SMTP_RELAY_USERNAME }"
+      "username": "${ customer_secrets.DEMO_SMTP_RELAY_USERNAME }"
     }
   }
 }
