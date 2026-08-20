@@ -3,7 +3,7 @@
     "llm"
   ],
   "currency": "USD",
-  "description": "Relays OpenAI-compatible chat completion requests through the UnitySVC API gateway to the mock upstream at `mock.unitysvc.dev/openai/v1` \u2014 lets you develop against a real gateway path without incurring provider costs.",
+  "description": "Relays OpenAI-compatible chat completion requests through the UnitySVC API gateway to the mock upstream at `mock.unitysvc.dev/openai/v1` — lets you develop against a real gateway path without incurring provider costs.",
   "details": {
     "context_length": 8192,
     "context_window": 8192,
@@ -15,7 +15,7 @@
   "display_name": "Demo LLM Chat (Mock)",
   "name": "llm",
   "payout_price": {
-    "description": "Mock pricing \u2014 $0.50 / 1M input tokens, $1.50 / 1M output tokens",
+    "description": "Mock pricing — $0.50 / 1M input tokens, $1.50 / 1M output tokens",
     "input": "0.50",
     "output": "1.50",
     "type": "one_million_tokens"

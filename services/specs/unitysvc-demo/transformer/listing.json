@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "Demo Transformer (apprise \u2192 Discord)",
+  "display_name": "Demo Transformer (apprise → Discord)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": {

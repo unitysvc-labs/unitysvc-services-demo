@@ -9,12 +9,12 @@
   "list_price": {
     "channels": {
       "echo": {
-        "description": "Free \u2014 managed static echo endpoint on the canonical URL",
+        "description": "Free — managed static echo endpoint on the canonical URL",
         "price": "0",
         "type": "constant"
       },
       "plus": {
-        "description": "$1 per 10,000 requests \u2014 per-enrollment endpoint you bind via parameters",
+        "description": "$1 per 10,000 requests — per-enrollment endpoint you bind via parameters",
         "price": "0.0001",
         "type": "constant"
       }

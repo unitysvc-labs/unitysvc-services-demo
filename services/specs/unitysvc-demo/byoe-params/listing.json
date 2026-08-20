@@ -7,7 +7,7 @@
     }
   },
   "list_price": {
-    "description": "Free \u2014 customer provides own endpoint and API key",
+    "description": "Free — customer provides own endpoint and API key",
     "price": "0",
     "type": "constant"
   },
