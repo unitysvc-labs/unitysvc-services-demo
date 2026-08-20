@@ -9,12 +9,12 @@
   "list_price": {
     "channels": {
       "echo": {
-        "description": "Free \u2014 managed static echo endpoint on the canonical URL",
+        "description": "Free — managed static echo endpoint on the canonical URL",
         "price": "0",
         "type": "constant"
       },
       "plus": {
-        "description": "$1 per 10,000 requests \u2014 per-enrollment endpoint you bind via parameters",
+        "description": "$1 per 10,000 requests — per-enrollment endpoint you bind via parameters",
         "price": "0.0001",
         "type": "constant"
       }
@@ -24,6 +24,7 @@
   },
   "name": "unitysvc-demo/multi-channel",
   "service_options": {
+    "default_visibility": "private",
     "ops_testing_parameters": {
       "api_key_secret": "MULTI_CHANNEL_API_KEY",
       "base_url": "https://echo.unitysvc.dev/multi-channel-plus"

@@ -13,6 +13,7 @@
   },
   "name": "unitysvc-demo/routing_vars",
   "service_options": {
+    "default_visibility": "private",
     "routing_vars": {
       "backend_host": "https://echo.unitysvc.dev/routing-vars"
     }

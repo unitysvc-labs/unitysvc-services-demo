@@ -1,6 +1,6 @@
 {
   "currency": "USD",
-  "display_name": "Demo Transformer (apprise \u2192 Discord)",
+  "display_name": "Demo Transformer (apprise → Discord)",
   "documents": {
     "Connectivity test": {
       "$doc_preset": {
@@ -21,6 +21,9 @@
     "type": "constant"
   },
   "name": "unitysvc-demo/transformer",
+  "service_options": {
+    "default_visibility": "private"
+  },
   "status": "ready",
   "time_created": "2026-05-29T00:00:00Z",
   "user_access_interfaces": {

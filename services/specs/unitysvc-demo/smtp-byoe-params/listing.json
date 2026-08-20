@@ -10,12 +10,13 @@
     }
   },
   "list_price": {
-    "description": "Free \u2014 customer provides own SMTP server",
+    "description": "Free — customer provides own SMTP server",
     "price": "0",
     "type": "constant"
   },
   "name": "unitysvc-demo/smtp-byoe-params",
   "service_options": {
+    "default_visibility": "private",
     "ops_testing_parameters": {
       "SMTP_HOST_SECRET": "SMTP_RELAY_HOST",
       "SMTP_PASSWORD_SECRET": "SMTP_RELAY_PASSWORD",

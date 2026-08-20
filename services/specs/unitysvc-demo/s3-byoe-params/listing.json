@@ -13,12 +13,13 @@
     }
   },
   "list_price": {
-    "description": "Free \u2014 customer provides own bucket and credentials",
+    "description": "Free — customer provides own bucket and credentials",
     "price": "0",
     "type": "constant"
   },
   "name": "unitysvc-demo/s3-byoe-params",
   "service_options": {
+    "default_visibility": "private",
     "ops_testing_parameters": {
       "s3_access_key_secret": "S3_ACCESS_KEY",
       "s3_bucket_secret": "S3_BUCKET",

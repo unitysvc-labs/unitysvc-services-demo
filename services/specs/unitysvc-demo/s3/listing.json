@@ -18,6 +18,9 @@
     "type": "constant"
   },
   "name": "unitysvc-demo/s3",
+  "service_options": {
+    "default_visibility": "private"
+  },
   "status": "ready",
   "time_created": "2026-04-18T00:00:00Z",
   "user_access_interfaces": {

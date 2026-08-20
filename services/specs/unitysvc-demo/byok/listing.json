@@ -7,11 +7,14 @@
     }
   },
   "list_price": {
-    "description": "Free \u2014 customer brings own API key",
+    "description": "Free — customer brings own API key",
     "price": "0",
     "type": "constant"
   },
   "name": "unitysvc-demo/byok",
+  "service_options": {
+    "default_visibility": "private"
+  },
   "status": "ready",
   "time_created": "2026-04-18T00:00:00Z",
   "user_access_interfaces": {

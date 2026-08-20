@@ -6,7 +6,7 @@
   "description": "Customer supplies the upstream bucket, endpoint, and credentials through their own secret store; the gateway proxies S3 requests to the customer's storage. Region defaults to us-east-1 (via `${ customer_secrets.S3_REGION ?? us-east-1 }`) if the customer hasn't set the secret.",
   "name": "s3-byoe",
   "payout_price": {
-    "description": "No platform commission \u2014 customer uses own bucket",
+    "description": "No platform commission — customer uses own bucket",
     "percentage": "100.00",
     "type": "revenue_share"
   },

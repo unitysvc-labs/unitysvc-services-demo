@@ -21,6 +21,9 @@
     "type": "constant"
   },
   "name": "unitysvc-demo/notification",
+  "service_options": {
+    "default_visibility": "private"
+  },
   "status": "ready",
   "time_created": "2026-05-03T00:00:00Z",
   "user_access_interfaces": {

@@ -10,11 +10,14 @@
     }
   },
   "list_price": {
-    "description": "Free \u2014 customer provides own SMTP server",
+    "description": "Free — customer provides own SMTP server",
     "price": "0",
     "type": "constant"
   },
   "name": "unitysvc-demo/smtp-byoe",
+  "service_options": {
+    "default_visibility": "private"
+  },
   "status": "ready",
   "time_created": "2026-04-18T00:00:00Z",
   "user_access_interfaces": {

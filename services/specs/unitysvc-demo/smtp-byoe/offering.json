@@ -5,7 +5,7 @@
   "description": "The customer connects their own SMTP server (Gmail, SendGrid, SES, etc.) through the UnitySVC gateway; host, port, username, and password are all resolved from the customer's secret store.",
   "name": "smtp-byoe",
   "payout_price": {
-    "description": "No platform commission \u2014 customer uses own SMTP",
+    "description": "No platform commission — customer uses own SMTP",
     "percentage": "100.00",
     "type": "revenue_share"
   },
