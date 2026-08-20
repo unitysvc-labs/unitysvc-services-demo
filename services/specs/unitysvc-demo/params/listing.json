@@ -13,6 +13,7 @@
   },
   "name": "unitysvc-demo/params",
   "service_options": {
+    "default_visibility": "private",
     "ops_testing_parameters": {
       "model": "echo-default"
     }

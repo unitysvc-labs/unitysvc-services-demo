@@ -24,6 +24,7 @@
   },
   "name": "unitysvc-demo/multi-channel",
   "service_options": {
+    "default_visibility": "private",
     "ops_testing_parameters": {
       "api_key_secret": "MULTI_CHANNEL_API_KEY",
       "base_url": "https://echo.unitysvc.dev/multi-channel-plus"

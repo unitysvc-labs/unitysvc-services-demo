@@ -13,6 +13,7 @@
   },
   "name": "unitysvc-demo/byoe-params",
   "service_options": {
+    "default_visibility": "private",
     "ops_testing_parameters": {
       "api_key_secret": "ECHO_BYOE_API_KEY",
       "base_url_secret": "ECHO_BYOE_BASE_URL"

@@ -13,6 +13,7 @@
   },
   "name": "unitysvc-demo/recurrent",
   "service_options": {
+    "default_visibility": "private",
     "prompt_recurrence": true,
     "recurrence_allow_cron": true,
     "recurrence_max_interval_seconds": 86400,

@@ -16,6 +16,7 @@
   },
   "name": "unitysvc-demo/smtp-byoe-params",
   "service_options": {
+    "default_visibility": "private",
     "ops_testing_parameters": {
       "SMTP_HOST_SECRET": "SMTP_RELAY_HOST",
       "SMTP_PASSWORD_SECRET": "SMTP_RELAY_PASSWORD",
