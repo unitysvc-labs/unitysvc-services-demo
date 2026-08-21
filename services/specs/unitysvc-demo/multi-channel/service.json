@@ -3,5 +3,6 @@
   "name": "unitysvc-demo/multi-channel",
   "service_id": "c3505a83-db0c-4353-bbc2-d82143e43389",
   "status": "created",
-  "time_created": "2026-08-18T13:14:55.278196Z"
+  "time_created": "2026-08-18T13:14:55.278196Z",
+  "upstream_test_status": "pass"
 }

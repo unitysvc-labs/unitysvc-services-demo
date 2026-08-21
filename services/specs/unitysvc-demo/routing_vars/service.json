@@ -3,5 +3,6 @@
   "name": "unitysvc-demo/routing_vars",
   "service_id": "e7df2770-c5ae-4149-bb01-bebacbc3c71c",
   "status": "created",
-  "time_created": "2026-08-18T13:14:57.997849Z"
+  "time_created": "2026-08-18T13:14:57.997849Z",
+  "upstream_test_status": "pass"
 }

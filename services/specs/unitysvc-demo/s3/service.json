@@ -3,5 +3,6 @@
   "name": "unitysvc-demo/s3",
   "service_id": "e8f67abf-119a-417b-b524-b9de14a1b5ef",
   "status": "created",
-  "time_created": "2026-08-18T13:14:54.566374Z"
+  "time_created": "2026-08-18T13:14:54.566374Z",
+  "upstream_test_status": "fail"
 }

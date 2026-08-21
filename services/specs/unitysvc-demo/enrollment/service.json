@@ -3,5 +3,6 @@
   "name": "unitysvc-demo/enrollment",
   "service_id": "7b44584e-06cd-4551-bbea-b9e2f997ac76",
   "status": "created",
-  "time_created": "2026-08-18T13:14:52.911074Z"
+  "time_created": "2026-08-18T13:14:52.911074Z",
+  "upstream_test_status": "pass"
 }
