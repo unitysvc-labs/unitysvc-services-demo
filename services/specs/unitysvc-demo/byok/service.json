@@ -3,5 +3,6 @@
   "name": "unitysvc-demo/byok",
   "service_id": "e1782276-1f09-4f6d-962f-252370eae5ca",
   "status": "created",
-  "time_created": "2026-08-18T13:14:50.704089Z"
+  "time_created": "2026-08-18T13:14:50.704089Z",
+  "upstream_test_status": "pass"
 }

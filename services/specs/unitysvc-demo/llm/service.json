@@ -3,5 +3,6 @@
   "name": "unitysvc-demo/llm",
   "service_id": "3e28b1d5-2c0e-4aa5-bfe9-8f2cecf68f08",
   "status": "created",
-  "time_created": "2026-08-18T13:14:54.886288Z"
+  "time_created": "2026-08-18T13:14:54.886288Z",
+  "upstream_test_status": "fail"
 }

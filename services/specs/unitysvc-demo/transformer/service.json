@@ -3,5 +3,6 @@
   "name": "unitysvc-demo/transformer",
   "service_id": "c6f5ae51-d854-48ce-96e2-25cba533c4b3",
   "status": "created",
-  "time_created": "2026-08-18T13:15:10.135356Z"
+  "time_created": "2026-08-18T13:15:10.135356Z",
+  "upstream_test_status": "pass"
 }
