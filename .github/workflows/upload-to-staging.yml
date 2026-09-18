@@ -9,9 +9,6 @@ name: Upload Data to Staging
 # calls unitysvc-labs/.github like every other catalog repo.
 
 on:
-  pull_request:
-    types: [closed]
-    branches: [main]
   workflow_dispatch:
 
 jobs:
