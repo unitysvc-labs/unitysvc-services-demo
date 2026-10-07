@@ -95,7 +95,6 @@ In the service's `listing.json`, add an entry to `documents`:
       "file_path": "../../docs/connectivity.sh.j2",
       "is_active": true,
       "is_public": false,
-      "meta": { "output_contains": "connectivity ok" },
       "mime_type": "bash"
     },
     "Python example": {
@@ -104,7 +103,7 @@ In the service's `listing.json`, add an entry to `documents`:
       "file_path": "../../docs/s3/code-example.py.j2",
       "is_active": true,
       "is_public": true,
-      "meta": { "output_contains": "connectivity ok" },
+      "meta": { "requirements": ["boto3"] },
       "mime_type": "python"
     }
   }
@@ -117,10 +116,10 @@ Key fields:
   for customer-facing examples, `description` for prose.
 - `is_public` — `false` keeps the example in the seller's dashboard
   only; `true` shows it on the public listing page.
-- `meta.output_contains` — the test harness asserts the substring is
-  present in stdout. **Case-sensitive** (see issue #52).
-- `meta.expect.status_code` — for HTTP-response tests, assert a
-  specific status (e.g., `200`).
+- `meta.requirements` — packages the runner installs before running a
+  Python example.
+- There is no output assertion in `meta`: a test passes or fails on its
+  **exit code** alone (see "Test assertions live in the script" below).
 
 ## The `local_testing` pattern
 
@@ -248,32 +247,36 @@ attribute access raises.
   (e.g., `description.md` showing the right base URL for the current
   seller's listing): Jinja context.
 
-## The `meta` block: test assertions
+## Test assertions live in the script
 
-The harness ships a couple of simple checks. Pick the narrowest one
-that catches real failure:
+The harness judges a run by its exit code and nothing else — locally
+(`usvc_seller data run-tests`) and on the platform alike. stdout gates
+nothing; the old stdout-substring `meta` check is retired (unitysvc/unitysvc#2542). So
+a script that needs to check what it got back asserts and exits
+non-zero itself, with a message that says what was wrong:
 
-```json
-"meta": { "output_contains": "connectivity ok" }
+```bash
+body=$(curl -sS --fail-with-body "$URL") || { echo "request failed: $body" >&2; exit 1; }
+grep -q '"models"' <<<"$body" || { echo "expected a models list, got: $body" >&2; exit 1; }
+echo "connectivity ok"
 ```
-Substring match against stdout. Case-sensitive (issue #52); pick a
-literal phrase you print on success.
 
-```json
-"meta": { "expect": { "status_code": 200 } }
+```python
+response.raise_for_status()
+data = response.json()
+if not data.get("data"):
+    sys.exit(f"expected a non-empty data list, got: {data}")
+print("connectivity ok")
 ```
-For HTTP-response tests; assert the response status code.
 
-```json
-"meta": { "output_contains": "models", "expect": { "status_code": 200 } }
-```
-Both can be combined.
+An assertion in the script can speak about status codes, counts and
+structure, where a stdout substring could only restate the exit code.
+Keep the trailing success line (`echo "connectivity ok"`) — it makes a
+passing run readable in the logs — but it is not what makes the run
+pass.
 
-**Anti-pattern:** asserting on the entire stdout, or on a dynamic
-value (timestamp, UUID, throughput number). Write a success-marker
-literal to stdout at the end of the example and assert on that —
-that's what `echo "connectivity ok"` does in every `connectivity.sh.j2`
-in this repo.
+**Anti-pattern:** a script that prints a failure message and still
+exits 0. Every failure path must `exit 1` (or raise).
 
 ## Secret references in `upstream_access_config`
 
@@ -390,9 +393,9 @@ For each new example, before committing:
 - [ ] Every `{{ params.KEY }}` used in a secret reference has a
       matching entry in `service_options.ops_testing_parameters`.
 - [ ] `usvc_seller data validate` passes.
-- [ ] A success marker (`connectivity ok` or similar) is echoed to
-      stdout on the happy path, and `meta.output_contains` asserts on
-      that exact literal.
+- [ ] Every failure path exits non-zero (or raises) with a message
+      on stderr; the happy path exits 0. The exit code is the whole
+      verdict — nothing checks stdout.
 - [ ] `usvc_seller data run-tests` passes locally with the required
       env vars exported.
 - [ ] You also rendered the non-`local_testing` output (e.g., by
@@ -420,8 +423,10 @@ actually exercising the gateway path. The test is a false positive.
 Fix: the `else` branch must use `SERVICE_BASE_URL` or the appropriate
 gateway-routed URL.
 
-**`output_contains` never matching due to case.** Issue #52. Match
-the exact case you emit.
+**A failure that exits 0.** A script that echoes "failed" but falls
+off the end (or a pipeline whose failing stage is masked without
+`set -o pipefail`) passes the test. Exit non-zero on every failure
+path.
 
 **Direct access to optional interface fields.** `interface.access_key`
 raises when the field isn't set; `interface.get("access_key")` returns
