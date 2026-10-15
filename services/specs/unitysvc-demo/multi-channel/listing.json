@@ -20,6 +20,7 @@
       }
     },
     "default": "echo",
+    "description": "Free - $1 per 10,000 requests",
     "type": "channel"
   },
   "name": "unitysvc-demo/multi-channel",
