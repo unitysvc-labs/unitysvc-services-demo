@@ -14,7 +14,7 @@
       "base_url": "${ customer_secrets.DEMO_HTTP_RELAY_BASE_URL }",
       "is_active": true,
       "is_primary": true,
-      "payload_format": "email"
+      "payload_format": "x-email-envelope"
     }
   }
 }
