@@ -23,10 +23,7 @@
   "user_access_interfaces": {
     "http_gateway": {
       "access_method": "http",
-      "base_url": "${API_GATEWAY_BASE_URL}/demo/echo-params",
-      "routing_key": {
-        "model": "{{ params.model }}"
-      }
+      "base_url": "${API_GATEWAY_BASE_URL}/demo/echo-params"
     }
   },
   "user_parameters_schema": {
