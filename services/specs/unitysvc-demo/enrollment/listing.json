@@ -20,7 +20,7 @@
   "user_access_interfaces": {
     "http_gateway": {
       "access_method": "http",
-      "base_url": "${API_GATEWAY_BASE_URL}/demo/echo-enrollment/{{ enrollment.code }}"
+      "base_url": "${API_GATEWAY_BASE_URL}/demo/echo-enrollment"
     }
   }
 }

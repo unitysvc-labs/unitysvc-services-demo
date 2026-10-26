@@ -16,7 +16,7 @@ points for your own services.
 | `byoe`             | HTTP    | no         | customer `base_url` + `api_key`    | BYOE pattern                                      |
 | `params`           | HTTP    | yes        | none                               | user parameter as routing key                     |
 | `byoe-params`      | HTTP    | yes        | customer, names via params         | parameterized secret names                        |
-| `enrollment`       | HTTP    | yes        | none                               | `{{ enrollment.code }}` for per-enrollment URL    |
+| `enrollment`       | HTTP    | yes        | none                               | `{{ enrollment.code }}` in the upstream URL       |
 | `multi-channel`    | HTTP    | plus only  | customer `api_key` (plus, optional)| two channels in one offering + channel pricing    |
 | `recurrent`        | HTTP    | yes        | none                               | `prompt_recurrence` scheduling                    |
 | `routing_vars`     | HTTP    | no         | none                               | post-activation seller knobs via `routing_vars`   |
@@ -79,23 +79,21 @@ via `customer_secrets`. Each customer routes to their own backend.
 
 Some services need per-enrollment configuration. `params` declares a single
 string parameter, `model`, that each customer supplies at enrollment time. The
-same value is used as the `routing_key` so a request carrying
-`{"model": "<value>", ...}` is matched to this service listing.
+channel sends it upstream as the `routing_key` model, so every enrollment
+serves the model its customer chose.
 
 - **listing.json** adds:
   - `user_parameters_schema` — JSON Schema declaring `model` (required string).
   - `service_options.ops_testing_parameters.model` — default value used by
     automated tests (`usvc data run-tests` / gateway tests). `ops_testing_parameters`
     is mandatory whenever a required parameter has no schema `default`.
-  - `user_access_interfaces."HTTP Gateway".routing_key = {"model": "{{ params.model }}"}`
-    — Jinja-templated routing key rendered at enrollment time with the
-    customer's chosen model.
-- **offering.json** mirrors the routing key inside
-  `upstream_access_config."Echo Service".routing_key` so the gateway can
-  match the upstream for the same model value.
-
-The customer request body **must** include `"model": "<their-value>"` so the
-gateway can extract the routing key and dispatch to the correct service.
+  - `user_access_interfaces.http_gateway` — a static address. A user access
+    interface never reads `{{ params.* }}` or `{{ enrollment.* }}`
+    (unitysvc/unitysvc#2726): it is the same for every caller.
+- **offering.json** reads the parameter inside
+  `upstream_access_config.echo_service.routing_key = {"model": "{{ params.model }}"}`,
+  which makes the channel enrollable. Each enrollment is reached at its own
+  `/e/<code>` URL, which the platform provides.
 
 ### `byoe-params` — BYOE with parameterized secret names
 
@@ -116,23 +114,22 @@ customer — each enrollment points at a different pair of secrets.
 ### `enrollment` — Per-enrollment code in URLs
 
 Demonstrates per-enrollment routing using the intrinsic `{{ enrollment.code }}`.
-Every enrollment has a unique 4-character `code`, so it can be embedded directly
-in any access interface template — no per-enrollment variable to declare.
+Every enrollment has a unique `code`, so the channel can use it directly — no
+per-enrollment variable to declare.
 
-- **listing.json** uses `{{ enrollment.code }}` inside
-  `user_access_interfaces.http_gateway.base_url`.
-- **offering.json** references the same `{{ enrollment.code }}` inside
-  `upstream_access_config.echo_service.base_url`, so the gateway forwards to the
-  matching upstream path.
+- **offering.json** references `{{ enrollment.code }}` inside
+  `upstream_access_config.echo_service.base_url`, so each enrollment forwards to
+  its own upstream path. That reference makes the channel enrollable.
+- **listing.json** declares a static `user_access_interfaces.http_gateway`
+  (`${API_GATEWAY_BASE_URL}/demo/echo-enrollment`). A user access interface
+  never reads `{{ enrollment.* }}` or `{{ params.* }}` (unitysvc/unitysvc#2726);
+  each enrollment is reached at its own `/e/<code>` URL, which the platform
+  provides.
 
-Both templates render to the same code (e.g. `CEFF`) for a given enrollment, so
-every enrollment gets a unique route on both the gateway and upstream sides.
-
-> Every enrollment is also reachable directly at `/e/<code>` regardless of
-> `base_url`. The `{{ enrollment.code }}` value replaces both the old
-> `enrollment_code()` template function and the removed
-> `service_options.enrollment_vars` mechanism — reference `{{ enrollment.code }}`
-> directly.
+On the SMTP and S3 gateways, which have no `/e/` path, the enrollment code itself
+is the address: an SMTP `routing_key.username` or an S3 bucket segment that is
+exactly `{{ enrollment.code }}` (as `smtp-relay` in unitysvc-services-smtp and
+`s3-proxy` in unitysvc-services-s3 do).
 
 ### `multi-channel` — Multiple upstream channels in one offering
 

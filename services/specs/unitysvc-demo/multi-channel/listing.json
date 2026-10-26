@@ -34,10 +34,6 @@
   "status": "ready",
   "time_created": "2026-06-18T00:00:00Z",
   "user_access_interfaces": {
-    "enrollment": {
-      "access_method": "http",
-      "base_url": "${API_GATEWAY_BASE_URL}/{{ enrollment.code }}"
-    },
     "http_gateway": {
       "access_method": "http",
       "base_url": "${API_GATEWAY_BASE_URL}/demo/multi-channel"
