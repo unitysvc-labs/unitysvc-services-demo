@@ -17,12 +17,11 @@
   "upstream_access_config": {
     "s3_upstream": {
       "access_key": "${ customer_secrets.S3_ACCESS_KEY }",
-      "access_method": "http",
+      "access_method": "s3",
       "bucket": "${ customer_secrets.S3_BUCKET }",
       "region": "${ customer_secrets.S3_REGION ?? us-east-1 }",
       "s3_endpoint": "${ customer_secrets.S3_ENDPOINT }",
-      "secret_key": "${ customer_secrets.S3_SECRET_KEY }",
-      "storage_type": "s3"
+      "secret_key": "${ customer_secrets.S3_SECRET_KEY }"
     }
   }
 }

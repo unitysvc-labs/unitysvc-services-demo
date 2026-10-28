@@ -82,18 +82,20 @@ string parameter, `model`, that each customer supplies at enrollment time. The
 channel sends it upstream as the `routing_key` model, so every enrollment
 serves the model its customer chose.
 
-- **listing.json** adds:
-  - `user_parameters_schema` — JSON Schema declaring `model` (required string).
-  - `service_options.ops_testing_parameters.model` — default value used by
-    automated tests (`usvc data run-tests` / gateway tests). `ops_testing_parameters`
-    is mandatory whenever a required parameter has no schema `default`.
-  - `user_access_interfaces.http_gateway` — a static address. A user access
-    interface never reads `{{ params.* }}` or `{{ enrollment.* }}`
-    (unitysvc/unitysvc#2726): it is the same for every caller.
-- **offering.json** reads the parameter inside
-  `upstream_access_config.echo_service.routing_key = {"model": "{{ params.model }}"}`,
-  which makes the channel enrollable. Each enrollment is reached at its own
-  `/e/<code>` URL, which the platform provides.
+- **offering.json** declares the parameter on the channel that reads it
+  (unitysvc/unitysvc#2726):
+  - `upstream_access_config.echo_service.params.schema` — JSON Schema declaring
+    `model` (required string).
+  - `upstream_access_config.echo_service.params.testing_defaults.model` — the
+    value automated tests (`usvc data run-tests` / gateway tests) use. Every
+    required parameter needs one.
+  - `upstream_access_config.echo_service.routing_key = {"model": "{{ params.model }}"}`
+    reads it, which makes the channel enrollable. Each enrollment is reached at
+    its own `/e/<code>` URL, which the platform provides.
+- **listing.json** declares no parameters. Its
+  `user_access_interfaces.http_gateway` is a static address: a user access
+  interface never reads `{{ params.* }}` or `{{ enrollment.* }}`
+  (unitysvc/unitysvc#2726); it is the same for every caller.
 
 ### `byoe-params` — BYOE with parameterized secret names
 
@@ -106,9 +108,9 @@ customer — each enrollment points at a different pair of secrets.
   `api_key = "${ customer_secrets.{{ params.api_key_secret }} }"`. The
   `{{ params.X }}` is rendered at enrollment time to a concrete secret name,
   which is then resolved from the customer's secret store at request time.
-- **listing.json** declares `base_url_secret` (required) and
-  `api_key_secret` (optional, default `""`) in `user_parameters_schema`.
-  `ops_testing_parameters` pins them to `ECHO_BYOE_BASE_URL` /
+- The channel declares `base_url_secret` (required) and
+  `api_key_secret` (optional, default `""`) in `params.schema`, and
+  `params.testing_defaults` pins them to `ECHO_BYOE_BASE_URL` /
   `ECHO_BYOE_API_KEY` for automated tests.
 
 ### `enrollment` — Per-enrollment code in URLs
@@ -149,10 +151,10 @@ multi-channel model (unitysvc/unitysvc#1281) and channel-based pricing
     `/e/<code>` URL. The metered channel.
 - **listing.json** uses **channel-based pricing** (`list_price.type: "channel"`):
   the `echo` channel is free, `plus` is `$0.0001`/request, and `default: "echo"`.
-  The channel keys here must match the `upstream_access_config` keys. A
-  `user_parameters_schema` declares the `plus` parameters (`base_url` required,
-  `api_key_secret` optional), and `service_options.ops_testing_parameters` pins
-  them for automated tests.
+  The channel keys here must match the `upstream_access_config` keys.
+- The `plus` channel's `params.schema` declares its parameters (`base_url`
+  required, `api_key_secret` optional), and its `params.testing_defaults` pins
+  them for automated tests. The `echo` channel declares none.
 
 The enrollable `plus` channel co-exists with the free open `echo` channel: a
 canonical request is served by `echo`, while every `plus` enrollment gets its own
@@ -207,7 +209,7 @@ than the HTTP API gateway. No user enrollment or customer secrets; the seller
 supplies upstream S3 credentials via seller secrets.
 
 - **offering.json** `upstream_access_config` uses S3-specific fields in addition
-  to `access_method`: `storage_type: "s3"`, `s3_endpoint`, `bucket`, `region`,
+  with `access_method: "s3"`: `s3_endpoint`, `bucket`, `region`,
   and `access_key` / `secret_key` referencing `${ secrets.S3_ACCESS_KEY_ID }`
   / `${ secrets.S3_SECRET_KEY }` from the seller's secret store.
 - **listing.json** `user_access_interfaces."S3 Gateway".base_url` uses
@@ -238,9 +240,8 @@ resolves to the secret's name, which the secret resolver then looks up.
 
 - **offering.json** uses this pattern for all five upstream fields
   (matches the same pattern as `smtp-byoe-params`).
-- **listing.json** declares a `user_parameters_schema` with the five
-  parameter names (all required) and pins them to `SVCPASS_S3_*` in
-  `service_options.ops_testing_parameters` for automated tests.
+- The channel's `params.schema` declares the five parameter names (all
+  required), and `params.testing_defaults` pins them for automated tests.
 
 ### `smtp` — SMTP relay
 
@@ -279,10 +280,9 @@ customer (personal Gmail, work SendGrid, transactional SES, etc.).
 - **offering.json** uses the Jinja-inside-secret form:
   `"host": "${ customer_secrets.{{ params.SMTP_HOST_SECRET }} }"` (and the
   three other fields).
-- **listing.json** declares `user_parameters_schema` with the four
-  `*_SECRET` params (all required) and pins them to `SMTP_HOST` /
-  `SMTP_PORT` / `SMTP_USERNAME` / `SMTP_PASSWORD` in
-  `service_options.ops_testing_parameters` for automated tests.
+- The channel's `params.schema` declares the four `*_SECRET` params (all
+  required), and `params.testing_defaults` pins them to `SMTP_HOST` /
+  `SMTP_PORT` / `SMTP_USERNAME` / `SMTP_PASSWORD` for automated tests.
 
 ## Environment variables for local testing
 
@@ -314,7 +314,7 @@ Notes:
   (in the BYOE variants) — at local-test time both resolve from the
   process environment.
 - `s3-byoe-params` and `smtp-byoe-params` declare the secret names via
-  `service_options.ops_testing_parameters` in their listing. Changing
+  their channel's `params.testing_defaults` in the offering. Changing
   those mappings changes which env vars the tests read.
 - `S3_REGION` is optional for both S3 BYOE services — the `?? us-east-1`
   default in their offerings is used when the env var is unset.

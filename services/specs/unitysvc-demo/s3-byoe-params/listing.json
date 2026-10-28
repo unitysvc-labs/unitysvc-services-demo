@@ -19,14 +19,7 @@
   },
   "name": "unitysvc-demo/s3-byoe-params",
   "service_options": {
-    "default_visibility": "private",
-    "ops_testing_parameters": {
-      "s3_access_key_secret": "S3_ACCESS_KEY",
-      "s3_bucket_secret": "S3_BUCKET",
-      "s3_endpoint_secret": "S3_ENDPOINT",
-      "s3_region_secret": "S3_REGION",
-      "s3_secret_key_secret": "S3_SECRET_KEY"
-    }
+    "default_visibility": "private"
   },
   "status": "ready",
   "time_created": "2026-04-18T00:00:00Z",
@@ -35,37 +28,5 @@
       "access_method": "http",
       "base_url": "${S3_GATEWAY_BASE_URL}/demo-s3-byoe-params"
     }
-  },
-  "user_parameters_schema": {
-    "properties": {
-      "s3_access_key_secret": {
-        "description": "Name of the customer secret containing the S3 access key",
-        "type": "string"
-      },
-      "s3_bucket_secret": {
-        "description": "Name of the customer secret containing the S3 bucket",
-        "type": "string"
-      },
-      "s3_endpoint_secret": {
-        "description": "Name of the customer secret containing the S3 endpoint URL",
-        "type": "string"
-      },
-      "s3_region_secret": {
-        "description": "Name of the customer secret containing the S3 region",
-        "type": "string"
-      },
-      "s3_secret_key_secret": {
-        "description": "Name of the customer secret containing the S3 secret key",
-        "type": "string"
-      }
-    },
-    "required": [
-      "s3_endpoint_secret",
-      "s3_bucket_secret",
-      "s3_region_secret",
-      "s3_access_key_secret",
-      "s3_secret_key_secret"
-    ],
-    "type": "object"
   }
 }

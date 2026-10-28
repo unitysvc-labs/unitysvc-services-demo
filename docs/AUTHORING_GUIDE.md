@@ -131,7 +131,7 @@ to branch:
 1. **Routing / URL**. Test mode has direct access to the upstream;
    customers hit `SERVICE_BASE_URL` (the gateway URL).
 2. **Authentication credentials**. Test mode uses seller-provided
-   creds from `ops_testing_parameters`; customers use their
+   creds from the channel's `params.testing_defaults`; customers use their
    `UNITYSVC_API_KEY` plus any gateway-injected secrets.
 3. **Request-body parameters**. Test mode may need to write
    hardcoded params directly into the request body to reach upstream;
@@ -192,7 +192,7 @@ Every `.j2` file is processed by Jinja2 with these variables in scope
 | Variable | What it holds | Common access patterns |
 |---|---|---|
 | `local_testing` | Boolean. `True` under `run-tests`, `False` on upload and customer-facing render. | `{% if local_testing %}` |
-| `listing` | Full listing dict. | `listing.service_options.ops_testing_parameters.api_key_secret` |
+| `listing` | Full listing dict. | `listing.display_name`, `listing.service_options` |
 | `offering` | Full offering dict. | `offering.service_type`, `offering.upstream_access_config` |
 | `provider` | Provider metadata. | `provider.name`, `provider.display_name` |
 | `seller` | Seller metadata. | `seller.name`, `seller.contact_email` |
@@ -295,7 +295,8 @@ of:
    "api_key": "${ customer_secrets.ECHO_API_KEY }"
    ```
 2. **A Jinja substitution** referencing `params.KEY`, where `KEY`
-   exists in `service_options.ops_testing_parameters`:
+   is declared in the channel's `params.schema` and has a value in its
+   `params.testing_defaults`:
    ```json
    "access_key": "${ customer_secrets.{{ params.s3_access_key_secret }} }"
    ```
@@ -314,7 +315,7 @@ Nothing else is supported. In particular:
 Two stages, in order:
 
 1. **Jinja render**: the seller harness substitutes `{{ params.KEY }}`
-   using `service_options.ops_testing_parameters.KEY`. After this
+   using the channel's `params.testing_defaults.KEY`. After this
    step the reference must look like `${ customer_secrets.NAME }`
    with a plain identifier.
 2. **Environment lookup**: the resolver reads `os.environ.get(NAME)`.
@@ -325,13 +326,12 @@ Two stages, in order:
 
 ### Author responsibilities
 
-- Every name referenced via `{{ params.KEY }}` must also be declared
-  in the listing's `user_parameters_schema.properties` (so customers
-  know what to provide) and have a test value in
-  `service_options.ops_testing_parameters.KEY` (so `data run-tests`
-  can exercise it). `usvc_seller data validate` enforces the
-  second part automatically via
-  `validate_required_parameter_defaults()`.
+- Every name a channel references via `{{ params.KEY }}` must also be
+  declared in that channel's `params.schema.properties` (so customers
+  know what to provide) and have a test value in its
+  `params.testing_defaults.KEY` (so tests can exercise it).
+  `usvc_seller specs validate` enforces both
+  (unitysvc/unitysvc#2726).
 - Export each required env var before running the tests. The harness
   will tell you which ones are missing if you forget — see the
   example output above.
@@ -347,20 +347,17 @@ Two stages, in order:
     "region":     "${ customer_secrets.{{ params.s3_region_secret }} }",
     "s3_endpoint":"${ customer_secrets.{{ params.s3_endpoint_secret }} }",
     "secret_key": "${ customer_secrets.{{ params.s3_secret_key_secret }} }",
-    "storage_type": "s3"
-  }
-}
-```
-
-`listing.json`:
-```json
-"service_options": {
-  "ops_testing_parameters": {
-    "s3_access_key_secret":  "S3_ACCESS_KEY_ID",
-    "s3_bucket_secret":      "SVCPASS_S3_BUCKET",
-    "s3_region_secret":      "SVCPASS_S3_REGION",
-    "s3_endpoint_secret":    "SVCPASS_S3_ENDPOINT",
-    "s3_secret_key_secret":  "S3_SECRET_KEY"
+    "access_method": "s3",
+    "params": {
+      "schema": { "type": "object", "properties": { "s3_access_key_secret": { "type": "string" }, "…": {} } },
+      "testing_defaults": {
+        "s3_access_key_secret":  "S3_ACCESS_KEY_ID",
+        "s3_bucket_secret":      "SVCPASS_S3_BUCKET",
+        "s3_region_secret":      "SVCPASS_S3_REGION",
+        "s3_endpoint_secret":    "SVCPASS_S3_ENDPOINT",
+        "s3_secret_key_secret":  "S3_SECRET_KEY"
+      }
+    }
   }
 }
 ```
@@ -391,7 +388,7 @@ For each new example, before committing:
       uses either a literal name or `{{ params.KEY }}` — nothing
       else (no bracket lookup, no `routing_vars`/`enrollment`).
 - [ ] Every `{{ params.KEY }}` used in a secret reference has a
-      matching entry in `service_options.ops_testing_parameters`.
+      matching entry in the channel's `params.testing_defaults`.
 - [ ] `usvc_seller data validate` passes.
 - [ ] Every failure path exits non-zero (or raises) with a message
       on stderr; the happy path exits 0. The exit code is the whole

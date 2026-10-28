@@ -25,11 +25,7 @@
   },
   "name": "unitysvc-demo/multi-channel",
   "service_options": {
-    "default_visibility": "private",
-    "ops_testing_parameters": {
-      "api_key_secret": "MULTI_CHANNEL_API_KEY",
-      "base_url": "https://echo.unitysvc.dev/multi-channel-plus"
-    }
+    "default_visibility": "private"
   },
   "status": "ready",
   "time_created": "2026-06-18T00:00:00Z",
@@ -38,22 +34,5 @@
       "access_method": "http",
       "base_url": "${API_GATEWAY_BASE_URL}/demo/multi-channel"
     }
-  },
-  "user_parameters_schema": {
-    "properties": {
-      "api_key_secret": {
-        "default": "MULTI_CHANNEL_API_KEY",
-        "description": "Name of the customer secret holding the upstream API key for this enrollment. Defaults to MULTI_CHANNEL_API_KEY; if that secret is unset the `?? ` fallback resolves it to empty and the gateway sends no upstream key.",
-        "type": "string"
-      },
-      "base_url": {
-        "description": "Upstream base URL for this enrollment, specified directly (e.g. https://api.example.com)",
-        "type": "string"
-      }
-    },
-    "required": [
-      "base_url"
-    ],
-    "type": "object"
   }
 }

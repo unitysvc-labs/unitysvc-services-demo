@@ -17,13 +17,12 @@
   "upstream_access_config": {
     "s3_upstream": {
       "access_key": "${ secrets.S3_ACCESS_KEY }",
-      "access_method": "http",
+      "access_method": "s3",
       "base_path": "demo/",
       "bucket": "demo",
       "region": "us-east-1",
       "s3_endpoint": "https://s3.unitysvc.dev",
-      "secret_key": "${ secrets.S3_SECRET_KEY }",
-      "storage_type": "s3"
+      "secret_key": "${ secrets.S3_SECRET_KEY }"
     }
   }
 }
