@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "http_relay"
+    "http-relay"
   ],
   "description": "At enrollment the customer picks a `model` value; the platform uses it as the routing key so requests carrying `{\"model\": \"<value>\"}` are routed to this service.",
   "name": "params",

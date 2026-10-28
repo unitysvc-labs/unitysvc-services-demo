@@ -1,7 +1,7 @@
 {
   "capabilities": [
-    "s3_browse",
-    "s3_download"
+    "s3-list | Send an S3 ListObjects or ListObjectsV2 request on the bucket and get back the object keys under the service's prefix, proxied through the gateway with that prefix stripped. Listing only; it returns no object bytes and there is no write path.",
+    "s3-read-redirect"
   ],
   "description": "The customer supplies parameter values that name which of their secrets hold the upstream endpoint, bucket, region, and credentials, so one offering can serve many distinct buckets per customer. The region field falls back to `us-east-1` via the `?? us-east-1` default operator if the named secret isn't set.",
   "name": "s3-byoe-params",

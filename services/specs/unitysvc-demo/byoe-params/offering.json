@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "http_relay"
+    "http-relay"
   ],
   "description": "Parameters name which customer secrets hold the upstream URL and API key, so one offering can serve many distinct backends per customer.",
   "name": "byoe-params",

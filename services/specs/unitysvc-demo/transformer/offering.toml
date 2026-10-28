@@ -5,8 +5,7 @@ time_created = "2026-05-29T00:00:00Z"
 summary = "Technical demonstration of the `request_transformer` mechanism."
 description = "Receives a canonical Apprise notification envelope (`{title, body, from}`) over HTTP and uses a Lua body-transformer template to reshape it into a Discord `embeds` payload, then delivers it to the mock Discord webhook at mock.unitysvc.dev. No customer secrets required — the upstream is the platform-hosted mock endpoint."
 capabilities = [
-    "messaging",
-    "notification",
+    "notify-to-discord | POST a JSON {title, body, from} envelope; the gateway reshapes it into a Discord embeds payload (title, description, footer \"from <sender>\") and posts it to a mock Discord webhook, returning the webhook's response. Fields other than title, body and from are dropped.",
 ]
 
 [upstream_access_config.discord]

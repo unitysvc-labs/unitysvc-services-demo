@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "smtp_relay"
+    "smtp-relay"
   ],
   "description": "Each enrollment connects to a different SMTP server — customers provide the names of their own secrets as parameters, enabling multiple relay configurations (personal Gmail, work SendGrid, transactional SES, etc.) under a single account.",
   "name": "smtp-byoe-params",

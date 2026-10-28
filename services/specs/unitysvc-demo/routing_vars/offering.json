@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "http_relay"
+    "http-relay"
   ],
   "description": "The upstream URL is taken from `{{ routing_vars.backend_host }}`, so the seller can retarget traffic (e.g. staging → prod) or rotate between backends with a single CLI call.",
   "name": "routing_vars",

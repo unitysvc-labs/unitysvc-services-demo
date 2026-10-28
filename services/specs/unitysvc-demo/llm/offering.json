@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "llm"
+    "chat"
   ],
   "currency": "USD",
   "description": "Relays OpenAI-compatible chat completion requests through the UnitySVC API gateway to the mock upstream at `mock.unitysvc.dev/openai/v1` — lets you develop against a real gateway path without incurring provider costs.",

@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "notification"
+    "smtp-to-http"
   ],
   "description": "Receives email through the UnitySVC SMTP gateway and forwards it to the customer's HTTP endpoint as the platform `msg` envelope (`{title, body, type, format}`) — the body `notify` and the `msg-to-*` services accept, and the shape an apprise-api `/notify/{key}` or mailrise receiver takes. The upstream URL is resolved from the customer secret `DEMO_HTTP_RELAY_BASE_URL`.",
   "name": "smtp-to-apprise",

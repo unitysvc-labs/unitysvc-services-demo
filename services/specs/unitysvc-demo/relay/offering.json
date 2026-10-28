@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "http_relay"
+    "http-relay"
   ],
   "description": "Proxies requests through the UnitySVC gateway to a fixed upstream echo endpoint. Demonstrates the simplest possible service definition: a static upstream URL with no authentication.",
   "name": "relay",

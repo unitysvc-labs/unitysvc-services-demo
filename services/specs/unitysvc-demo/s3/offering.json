@@ -1,7 +1,7 @@
 {
   "capabilities": [
-    "s3_browse",
-    "s3_download"
+    "s3-list | Send an S3 ListObjects or ListObjectsV2 request on the bucket and get back the object keys under the service's prefix, proxied through the gateway with that prefix stripped. Listing only; it returns no object bytes and there is no write path.",
+    "s3-read-redirect"
   ],
   "description": "Routes customer requests through the UnitySVC S3 gateway to a seller-managed upstream bucket on `s3.unitysvc.dev`. No customer enrollment or secrets required; seller supplies upstream credentials via seller secrets.",
   "name": "s3",

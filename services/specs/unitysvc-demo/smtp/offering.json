@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "smtp_relay"
+    "smtp-relay"
   ],
   "description": "Routes messages through the UnitySVC SMTP gateway to the upstream mail server at `mailpit.unitysvc.dev`. Seller-managed upstream; no customer enrollment or secrets required.",
   "name": "smtp",
