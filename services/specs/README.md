@@ -109,7 +109,7 @@ customer — each enrollment has its own.
   or picks one of their own secrets when enrolling; nothing has to be created
   beforehand.
 - `params.testing_defaults` gives the test values: the echo endpoint, and
-  `${ secrets.ECHO_BYOE_API_KEY }` for the key.
+  `${ customer_secrets.ECHO_BYOE_API_KEY }` for the key.
 
 ### `enrollment` — Per-enrollment code in URLs
 

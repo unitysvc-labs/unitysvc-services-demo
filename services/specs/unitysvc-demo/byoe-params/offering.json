@@ -33,7 +33,7 @@
           "type": "object"
         },
         "testing_defaults": {
-          "api_key": "${ secrets.ECHO_BYOE_API_KEY }",
+          "api_key": "${ customer_secrets.ECHO_BYOE_API_KEY }",
           "base_url": "https://echo.unitysvc.dev/"
         }
       }

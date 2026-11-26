@@ -48,10 +48,10 @@
           "type": "object"
         },
         "testing_defaults": {
-          "host": "${ secrets.DEMO_SMTP_RELAY_HOST }",
-          "password": "${ secrets.DEMO_SMTP_RELAY_PASSWORD }",
-          "port": "${ secrets.DEMO_SMTP_RELAY_PORT }",
-          "username": "${ secrets.DEMO_SMTP_RELAY_USERNAME }"
+          "host": "${ customer_secrets.DEMO_SMTP_RELAY_HOST }",
+          "password": "${ customer_secrets.DEMO_SMTP_RELAY_PASSWORD }",
+          "port": "${ customer_secrets.DEMO_SMTP_RELAY_PORT }",
+          "username": "${ customer_secrets.DEMO_SMTP_RELAY_USERNAME }"
         }
       },
       "password": "{{ params.password }}",
