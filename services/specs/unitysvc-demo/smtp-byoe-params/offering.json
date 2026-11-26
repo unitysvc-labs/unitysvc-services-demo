@@ -16,11 +16,48 @@
   "upstream_access_config": {
     "customer_smtp": {
       "access_method": "smtp",
-      "host": "${ customer_secrets.{{ params.SMTP_HOST_SECRET }} }",
-      "password": "${ customer_secrets.{{ params.SMTP_PASSWORD_SECRET }} }",
-      "port": "${ customer_secrets.{{ params.SMTP_PORT_SECRET }} }",
+      "host": "{{ params.host }}",
+      "params": {
+        "schema": {
+          "properties": {
+            "host": {
+              "description": "SMTP hostname",
+              "type": "string"
+            },
+            "password": {
+              "description": "SMTP password. Paste it or pick one of your secrets; it is kept as a secret and not shown again.",
+              "format": "password",
+              "type": "string",
+              "writeOnly": true
+            },
+            "port": {
+              "description": "SMTP port",
+              "type": "string"
+            },
+            "username": {
+              "description": "SMTP username",
+              "type": "string"
+            }
+          },
+          "required": [
+            "host",
+            "port",
+            "username",
+            "password"
+          ],
+          "type": "object"
+        },
+        "testing_defaults": {
+          "host": "${ secrets.DEMO_SMTP_RELAY_HOST }",
+          "password": "${ secrets.DEMO_SMTP_RELAY_PASSWORD }",
+          "port": "${ secrets.DEMO_SMTP_RELAY_PORT }",
+          "username": "${ secrets.DEMO_SMTP_RELAY_USERNAME }"
+        }
+      },
+      "password": "{{ params.password }}",
+      "port": "{{ params.port }}",
       "tls": false,
-      "username": "${ customer_secrets.{{ params.SMTP_USERNAME_SECRET }} }"
+      "username": "{{ params.username }}"
     }
   }
 }
