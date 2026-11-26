@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "http_relay"
+    "http-relay"
   ],
   "description": "At enrollment the customer picks a `model` value; the platform uses it as the routing key so requests carrying `{\"model\": \"<value>\"}` are routed to this service.",
   "name": "params",
@@ -12,6 +12,24 @@
     "echo_service": {
       "access_method": "http",
       "base_url": "https://mock.unitysvc.dev/openai",
+      "params": {
+        "schema": {
+          "properties": {
+            "model": {
+              "description": "Model identifier used as the routing key for this enrollment",
+              "title": "Model",
+              "type": "string"
+            }
+          },
+          "required": [
+            "model"
+          ],
+          "type": "object"
+        },
+        "testing_defaults": {
+          "model": "echo-default"
+        }
+      },
       "routing_key": {
         "model": "{{ params.model }}"
       }

@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "http_relay"
+    "http-relay"
   ],
   "description": "Proxies requests to the echo endpoint using an API key supplied by the customer via the customer secret store.",
   "name": "byok",

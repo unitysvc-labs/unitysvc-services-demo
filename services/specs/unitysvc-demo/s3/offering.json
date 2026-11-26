@@ -1,7 +1,6 @@
 {
   "capabilities": [
-    "s3_browse",
-    "s3_download"
+    "s3-read-redirect"
   ],
   "description": "Routes customer requests through the UnitySVC S3 gateway to a seller-managed upstream bucket on `s3.unitysvc.dev`. No customer enrollment or secrets required; seller supplies upstream credentials via seller secrets.",
   "name": "s3",
@@ -17,13 +16,12 @@
   "upstream_access_config": {
     "s3_upstream": {
       "access_key": "${ secrets.S3_ACCESS_KEY }",
-      "access_method": "http",
+      "access_method": "s3",
       "base_path": "demo/",
       "bucket": "demo",
       "region": "us-east-1",
       "s3_endpoint": "https://s3.unitysvc.dev",
-      "secret_key": "${ secrets.S3_SECRET_KEY }",
-      "storage_type": "s3"
+      "secret_key": "${ secrets.S3_SECRET_KEY }"
     }
   }
 }

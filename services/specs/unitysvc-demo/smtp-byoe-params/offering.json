@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "smtp_relay"
+    "smtp-relay"
   ],
   "description": "Each enrollment connects to a different SMTP server — customers provide the names of their own secrets as parameters, enabling multiple relay configurations (personal Gmail, work SendGrid, transactional SES, etc.) under a single account.",
   "name": "smtp-byoe-params",
@@ -48,10 +48,10 @@
           "type": "object"
         },
         "testing_defaults": {
-          "host": "${ customer_secrets.DEMO_SMTP_RELAY_HOST }",
+          "host": "mailpit.unitysvc.dev",
           "password": "${ customer_secrets.DEMO_SMTP_RELAY_PASSWORD }",
-          "port": "${ customer_secrets.DEMO_SMTP_RELAY_PORT }",
-          "username": "${ customer_secrets.DEMO_SMTP_RELAY_USERNAME }"
+          "port": "1025",
+          "username": "anything"
         }
       },
       "password": "{{ params.password }}",

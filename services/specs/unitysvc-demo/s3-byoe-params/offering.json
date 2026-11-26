@@ -1,7 +1,6 @@
 {
   "capabilities": [
-    "s3_browse",
-    "s3_download"
+    "s3-read-redirect"
   ],
   "description": "The customer supplies parameter values that name which of their secrets hold the upstream endpoint, bucket, region, and credentials, so one offering can serve many distinct buckets per customer. The region field falls back to `us-east-1` via the `?? us-east-1` default operator if the named secret isn't set.",
   "name": "s3-byoe-params",
@@ -17,7 +16,7 @@
   "upstream_access_config": {
     "s3_upstream": {
       "access_key": "{{ params.s3_access_key }}",
-      "access_method": "http",
+      "access_method": "s3",
       "bucket": "{{ params.s3_bucket }}",
       "params": {
         "schema": {
@@ -66,8 +65,7 @@
       },
       "region": "{{ params.s3_region }}",
       "s3_endpoint": "{{ params.s3_endpoint }}",
-      "secret_key": "{{ params.s3_secret_key }}",
-      "storage_type": "s3"
+      "secret_key": "{{ params.s3_secret_key }}"
     }
   }
 }
