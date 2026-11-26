@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "http_relay"
+    "http-relay"
   ],
   "description": "Every enrollment's intrinsic 4-character `{{ enrollment.code }}` is substituted directly into both the customer-facing gateway URL and the upstream URL, giving every enrollment a unique path.",
   "name": "enrollment",

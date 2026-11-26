@@ -15,7 +15,7 @@ points for your own services.
 | `byok`             | HTTP    | no         | customer `api_key`                 | BYOK pattern                                      |
 | `byoe`             | HTTP    | no         | customer `base_url` + `api_key`    | BYOE pattern                                      |
 | `params`           | HTTP    | yes        | none                               | user parameter as routing key                     |
-| `byoe-params`      | HTTP    | yes        | customer, names via params         | parameterized secret names                        |
+| `byoe-params`      | HTTP    | yes        | customer, values via params        | endpoint and key given per enrollment             |
 | `enrollment`       | HTTP    | yes        | none                               | `{{ enrollment.code }}` in the upstream URL       |
 | `multi-channel`    | HTTP    | plus only  | customer `api_key` (plus, optional)| two channels in one offering + channel pricing    |
 | `recurrent`        | HTTP    | yes        | none                               | `prompt_recurrence` scheduling                    |
@@ -95,21 +95,21 @@ serves the model its customer chose.
   which makes the channel enrollable. Each enrollment is reached at its own
   `/e/<code>` URL, which the platform provides.
 
-### `byoe-params` — BYOE with parameterized secret names
+### `byoe-params` — BYOE with the endpoint and key given per enrollment
 
-Like `byoe`, but the customer secret **names** are themselves enrollment
-parameters. This lets one offering serve many independent backends per
-customer — each enrollment points at a different pair of secrets.
+Like `byoe`, but the customer gives the upstream endpoint and its key as
+enrollment parameters, so one offering serves many independent backends per
+customer — each enrollment has its own.
 
-- **offering.json** uses the Jinja-inside-secret form:
-  `base_url = "${ customer_secrets.{{ params.base_url_secret }} }"` and
-  `api_key = "${ customer_secrets.{{ params.api_key_secret }} }"`. The
-  `{{ params.X }}` is rendered at enrollment time to a concrete secret name,
-  which is then resolved from the customer's secret store at request time.
-- **listing.json** declares `base_url_secret` (required) and
-  `api_key_secret` (optional, default `""`) in `user_parameters_schema`.
-  `ops_testing_parameters` pins them to `ECHO_BYOE_BASE_URL` /
-  `ECHO_BYOE_API_KEY` for automated tests.
+- **offering.json** reads the parameters directly: `base_url = "{{ params.base_url }}"`
+  and `api_key = "{{ params.api_key }}"`. The channel declares them in
+  `params.schema`: `base_url` (required) is an ordinary value, and `api_key`
+  (optional, default `""`) is marked `"writeOnly": true`, so the platform keeps
+  it as a customer secret (unitysvc/unitysvc#3108). The customer pastes the key
+  or picks one of their own secrets when enrolling; nothing has to be created
+  beforehand.
+- `params.testing_defaults` gives the test values: the echo endpoint, and
+  `${ customer_secrets.ECHO_BYOE_API_KEY }` for the key.
 
 ### `enrollment` — Per-enrollment code in URLs
 
@@ -144,15 +144,16 @@ multi-channel model (unitysvc/unitysvc#1281) and channel-based pricing
     reached on the canonical gateway URL with no customer setup. The free *open*
     channel.
   - `plus` — **enrollable**: `base_url = "{{ params.base_url }}"` and
-    `api_key = "${ customer_secrets.{{ params.api_key_secret }} ?? }"`. Each
+    `api_key = "{{ params.api_key }}"`, where `api_key` is a `"writeOnly": true`
+    parameter the platform keeps as a customer secret (unitysvc/unitysvc#3108). Each
     enrollment binds its own upstream via parameters and is reached at its own
     `/e/<code>` URL. The metered channel.
 - **listing.json** uses **channel-based pricing** (`list_price.type: "channel"`):
   the `echo` channel is free, `plus` is `$0.0001`/request, and `default: "echo"`.
-  The channel keys here must match the `upstream_access_config` keys. A
-  `user_parameters_schema` declares the `plus` parameters (`base_url` required,
-  `api_key_secret` optional), and `service_options.ops_testing_parameters` pins
-  them for automated tests.
+  The channel keys here must match the `upstream_access_config` keys. The `plus`
+  channel's own `params.schema` (in offering.json) declares its parameters
+  (`base_url` required, `api_key` optional), and `params.testing_defaults` gives
+  the test endpoint.
 
 The enrollable `plus` channel co-exists with the free open `echo` channel: a
 canonical request is served by `echo`, while every `plus` enrollment gets its own
@@ -298,9 +299,9 @@ listed here require no environment configuration.
 | Service            | Required env vars                                            | Optional                    |
 | ------------------ | ------------------------------------------------------------ | --------------------------- |
 | `byok`             | —                                                            | `ECHO_API_KEY` (→ empty)    |
-| `multi-channel`    | —                                                            | `MULTI_CHANNEL_API_KEY` (→ empty) |
+| `multi-channel`    | —                                                            |                             |
 | `byoe`             | `ECHO_BYOE_BASE_URL`, `ECHO_BYOE_API_KEY`                    |                             |
-| `byoe-params`      | `ECHO_BYOE_BASE_URL`, `ECHO_BYOE_API_KEY`                    |                             |
+| `byoe-params`      | `ECHO_BYOE_API_KEY`                                          |                             |
 | `s3`               | `S3_ACCESS_KEY`, `S3_SECRET_KEY`                             |                             |
 | `s3-byoe`          | `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY` | `S3_REGION` (→ `us-east-1`) |
 | `s3-byoe-params`   | `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY` | `S3_REGION` (→ `us-east-1`) |

@@ -16,13 +16,7 @@
   },
   "name": "unitysvc-demo/smtp-byoe-params",
   "service_options": {
-    "default_visibility": "private",
-    "ops_testing_parameters": {
-      "SMTP_HOST_SECRET": "DEMO_SMTP_RELAY_HOST",
-      "SMTP_PASSWORD_SECRET": "DEMO_SMTP_RELAY_PASSWORD",
-      "SMTP_PORT_SECRET": "DEMO_SMTP_RELAY_PORT",
-      "SMTP_USERNAME_SECRET": "DEMO_SMTP_RELAY_USERNAME"
-    }
+    "default_visibility": "private"
   },
   "status": "ready",
   "time_created": "2026-04-18T00:00:00Z",
@@ -34,32 +28,5 @@
         "username": "smtp-byoe-params"
       }
     }
-  },
-  "user_parameters_schema": {
-    "properties": {
-      "SMTP_HOST_SECRET": {
-        "description": "Name of the customer secret containing the SMTP host",
-        "type": "string"
-      },
-      "SMTP_PASSWORD_SECRET": {
-        "description": "Name of the customer secret containing the SMTP password",
-        "type": "string"
-      },
-      "SMTP_PORT_SECRET": {
-        "description": "Name of the customer secret containing the SMTP port",
-        "type": "string"
-      },
-      "SMTP_USERNAME_SECRET": {
-        "description": "Name of the customer secret containing the SMTP username",
-        "type": "string"
-      }
-    },
-    "required": [
-      "SMTP_HOST_SECRET",
-      "SMTP_PORT_SECRET",
-      "SMTP_USERNAME_SECRET",
-      "SMTP_PASSWORD_SECRET"
-    ],
-    "type": "object"
   }
 }

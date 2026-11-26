@@ -13,10 +13,7 @@
   },
   "name": "unitysvc-demo/params",
   "service_options": {
-    "default_visibility": "private",
-    "ops_testing_parameters": {
-      "model": "echo-default"
-    }
+    "default_visibility": "private"
   },
   "status": "ready",
   "time_created": "2026-04-18T00:00:00Z",
@@ -25,18 +22,5 @@
       "access_method": "http",
       "base_url": "${API_GATEWAY_BASE_URL}/demo/echo-params"
     }
-  },
-  "user_parameters_schema": {
-    "properties": {
-      "model": {
-        "description": "Model identifier used as the routing key for this enrollment",
-        "title": "Model",
-        "type": "string"
-      }
-    },
-    "required": [
-      "model"
-    ],
-    "type": "object"
   }
 }

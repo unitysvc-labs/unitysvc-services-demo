@@ -1,6 +1,6 @@
 {
   "capabilities": [
-    "smtp_relay"
+    "smtp-relay"
   ],
   "description": "The customer connects their own SMTP server (Gmail, SendGrid, SES, etc.) through the UnitySVC gateway; host, port, username, and password are all resolved from the customer's secret store.",
   "name": "smtp-byoe",
